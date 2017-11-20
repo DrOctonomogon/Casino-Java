@@ -30,6 +30,6 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer>  {
     }
 
     public void addAIPlayers(int playersToAdd) {
-        
+
     }
 }

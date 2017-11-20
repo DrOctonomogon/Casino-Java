@@ -3,10 +3,7 @@ package io.zipcoder.casino;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class HandTest {
     Hand hand=new Hand();

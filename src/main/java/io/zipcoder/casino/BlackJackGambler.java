@@ -3,7 +3,6 @@ package io.zipcoder.casino;
 import java.util.ArrayList;
 
 public class BlackJackGambler extends CardPlayer {
-    private Player plauer;
     private Integer chipCount;
 
     public BlackJackGambler(Player player, Integer chipCount) {
@@ -53,11 +52,5 @@ public class BlackJackGambler extends CardPlayer {
         return total;
     }
 
-//    public ArrayList<Card> getHand() {
-//        return hand.getHand();
-//    }
-//    public void clearHand() {
-//        hand = new Hand();
-//    }
 
 }
