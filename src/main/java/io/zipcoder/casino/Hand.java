@@ -30,9 +30,12 @@ public class Hand {
     }
 
     public String toString() {
-        String cardsInHand = hand.get(0).toString();
-        for (int i = 1; i < hand.size(); i++)
-            cardsInHand += "\n" + hand.get(i).toString();
+        String cardsInHand = "Hand is Empty.";
+        if(hand.size() > 0) {
+            cardsInHand = hand.get(0).toString();
+            for (int i = 0; i < hand.size(); i++)
+                cardsInHand += "\n" + hand.get(i).toString();
+        }
         return cardsInHand;
     }
 

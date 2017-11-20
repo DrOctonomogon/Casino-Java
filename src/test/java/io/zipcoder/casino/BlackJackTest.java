@@ -22,13 +22,13 @@ public class BlackJackTest {
 
         p1 = new Player("Samwise", 10000, false);
         p2 = new Player("Frodo", 10000, false);
-        p3 = new Player("Smeagol", 10000, false);
+        p3 = new Player("Smeagol", 10, false);
 
         players.add(p1);
         players.add(p2);
         players.add(p3);
 
-//        blackJack.gameSetUp(players.get(0));
+        blackJack.gameSetUp(players.get(0));
 //        blackJack.gameSetUp(p3);
     }
 
@@ -57,6 +57,11 @@ public class BlackJackTest {
         boolean actual = blackJack.isBust(p1);
 
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void payOutTest() throws Exception {
+
     }
 
     @Test
@@ -89,13 +94,26 @@ public class BlackJackTest {
     }
 
     @Test
-    public void playerBetTest() throws Exception {
+    public void addWinningsTest() throws Exception {
+
     }
 
     @Test
-    public void addWinningsTest() throws Exception {
-    }
+    public void playerBetTest() throws Exception {
 
+        int bet = 5;
+
+        blackJack.playerBet(p3, bet);
+
+        int expected = p3.getChipCount() + bet;
+
+        blackJack.addWinnings(p3, 1);
+
+        int actual = p3.getChipCount();
+
+        Assert.assertEquals(expected, actual);
+
+    }
 
     @Test
     public void takeBetTest() throws Exception {
@@ -123,18 +141,26 @@ public class BlackJackTest {
         Assert.assertEquals(expected, actual);
     }
 
-
-    @Test
-    public void payOutTest() throws Exception {
-
-    }
-
-    @Test
-    public void calculateWinningsTest() throws Exception {
-    }
-
     @Test
     public void findWinnersTest() throws Exception {
+        p1.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADE));
+        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMOND));
+        p1.addCardToHand(new Card(Card.Rank.KING, Card.Suit.DIAMOND));
+
+
+        p2.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
+        p2.addCardToHand(new Card(Card.Rank.NINE, Card.Suit.DIAMOND));
+        p2.addCardToHand(new Card(Card.Rank.KING, Card.Suit.DIAMOND));
+
+        p3.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADE));
+        p3.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMOND));
+        p3.addCardToHand(new Card(Card.Rank.KING, Card.Suit.DIAMOND));
+
+        int expected = 2;
+
+        int actual = blackJack.findWinners().size();
+
+        Assert.assertEquals(expected, actual);
     }
 
 }

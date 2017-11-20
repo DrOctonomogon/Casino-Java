@@ -38,7 +38,6 @@ public class BlackJack extends CardGames implements Gamble {
             printPlayerHand(dealer);
             hitOrStay(dealer);
 
-
             if (!isBust(dealer)) {
                 ArrayList<Player> winners = findWinners();
                 payOut(winners);
@@ -94,7 +93,6 @@ public class BlackJack extends CardGames implements Gamble {
         dealer.resetHand();
     }
 
-
     public Integer takeBet(Player player) {
         Integer bet;
         if (player.isPerson()) {
@@ -108,7 +106,6 @@ public class BlackJack extends CardGames implements Gamble {
     public void payOut(ArrayList<Player> winners) {
         for (Player player : winners) {
             addWinnings(player, 2);
-
         }
     }
 
@@ -119,7 +116,7 @@ public class BlackJack extends CardGames implements Gamble {
     public ArrayList<Player> findWinners() {
         ArrayList<Player> winners = new ArrayList<Player>();
         for (Player player : getPlayers())
-            if (!isBust(player) && player.getHandTotal() > dealer.getHandTotal()) {
+            if (/*!isBust(player) &&*/ player.getHandTotal() > dealer.getHandTotal()) {
                 winners.add(player);
             }
 
