@@ -1,7 +1,8 @@
 package io.zipcoder.casino;
 
-public interface Games {
-    public void play(Player user);
+public interface Games<T> {
+    public void play(T user);
+    public void addAIPlayers(int playersToAdd);
 
 
 }

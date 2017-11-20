@@ -2,10 +2,13 @@ package io.zipcoder.casino;
 
 import java.util.ArrayList;
 
-public class GoFish extends CardGames {
+public class GoFish extends CardGames<GoFishPlayer> {
 
+    public void play(GoFishPlayer user) {
 
-    public void play(Player user) {
+    }
+
+    public void addAIPlayers(int playersToAdd) {
 
     }
 

@@ -2,15 +2,15 @@ package io.zipcoder.casino;
 
 import java.util.ArrayList;
 
-public abstract class CardGames implements Games {
-    private ArrayList<Player> players = new ArrayList<Player>();
+public abstract class CardGames<T extends CardPlayer> implements Games<T> {
+    private ArrayList<T> players=new ArrayList<T>();
     private Deck deck;
 
 
     public void dealCards(int cardsToDeal) {
         while (cardsToDeal > 0) {
 
-            for (Player player : players) {
+            for (T player : players) {
                 Card card = deck.getCard();
                 player.addCardToHand(card);
             }
@@ -18,12 +18,7 @@ public abstract class CardGames implements Games {
         }
     }
 
-    public void addAIPlayers(int playersToAdd) {
-        for (int i = 1; i <= playersToAdd; i++)
-            players.add(new Player("Computer" + i, 1000, false));
-    }
-
-    public void addPlayer(Player player) {
+    public void addPlayer(T player) {
         players.add(player);
     }
 
@@ -40,7 +35,7 @@ public abstract class CardGames implements Games {
         return players.get(index);
     }
 
-    public ArrayList<Player> getPlayers() {
+    public ArrayList<T> getPlayers() {
         return players;
     }
 
@@ -48,7 +43,7 @@ public abstract class CardGames implements Games {
         return deck.getCard();
     }
 
-    public void removePlayer(Player player) {
+    public void removePlayer(T player){
         players.remove(player);
     }
 

@@ -2,17 +2,18 @@ package io.zipcoder.casino;
 
 import java.util.ArrayList;
 
-public class Craps implements Games, Gamble {
+public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer>  {
 
-    public Integer takeBet(Player player) {
+
+    public Integer takeBet(CrapsPlayer player) {
         return null;
     }
 
-    public void payOut(ArrayList<Player> winners) {
+    public void payOut(ArrayList<CrapsPlayer> winners) {
 
     }
 
-    public ArrayList<Player> findWinners() {
+    public ArrayList<CrapsPlayer> findWinners() {
         return null;
     }
 
@@ -20,11 +21,15 @@ public class Craps implements Games, Gamble {
 
     }
 
-    public void addWinnings(Player player, Integer multiplier) {
+    public void addWinnings(CrapsPlayer player, Integer multiplier) {
 
     }
 
-    public void play(Player user) {
+    public void play(CrapsPlayer user) {
 
+    }
+
+    public void addAIPlayers(int playersToAdd) {
+        
     }
 }
