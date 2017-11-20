@@ -36,7 +36,7 @@ public class GoFishPlayerTest {
         String remainingExpected = "" + fiveHeart + QueenHeart;
         String remainingActual = "";
 
-        ArrayList<Card> cards = player.giveCardsToOther(Card.Rank.THREE);
+        ArrayList<Card> cards = player.pullCards(Card.Rank.THREE);
         for (Card card : cards)
             actual += " " + card;
 
