@@ -14,12 +14,12 @@ public class BlackJack extends CardGames implements Gamble {
     public void play(Player user) {
         gameSetUp(user);
         do {
-            System.out.println("Cards Left: "+getRemainingCards());
-            if(getRemainingCards()/getPlayers().size()<52)
+            System.out.println("Cards Left: " + getRemainingCards());
+            if (getRemainingCards() / getPlayers().size() < 52)
                 loadDecks(8);
             for (Player player : getPlayers()) {
                 System.out.println(player.getName() + " chips: " + player.getChipCount());
-                Integer bet=takeBet(player);
+                Integer bet = takeBet(player);
                 playerBet(player, bet);
             }
 
@@ -51,7 +51,7 @@ public class BlackJack extends CardGames implements Gamble {
 
     }
 
-    public void gameSetUp(Player user){
+    public void gameSetUp(Player user) {
         dealer = new Dealer();
         addPlayer(user);
         loadDecks(8);
@@ -69,12 +69,11 @@ public class BlackJack extends CardGames implements Gamble {
             else userChoice = CompPlay.hitOrStay(player);
 
             if (userChoice.equalsIgnoreCase("Hit")) {
-                System.out.println(player.getName()+": Hit");
+                System.out.println(player.getName() + ": Hit");
                 Card card = getCard();
                 player.addCardToHand(card);
                 printPlayerHand(player);
-            }
-            else System.out.println(player.getName()+": Stay");
+            } else System.out.println(player.getName() + ": Stay");
         }
 
     }
@@ -108,7 +107,7 @@ public class BlackJack extends CardGames implements Gamble {
 
     public void payOut(ArrayList<Player> winners) {
         for (Player player : winners) {
-                addWinnings(player, 2);
+            addWinnings(player, 2);
 
         }
     }
@@ -120,7 +119,7 @@ public class BlackJack extends CardGames implements Gamble {
     public ArrayList<Player> findWinners() {
         ArrayList<Player> winners = new ArrayList<Player>();
         for (Player player : getPlayers())
-            if (!isBust(player)&&player.getHandTotal() > dealer.getHandTotal()) {
+            if (!isBust(player) && player.getHandTotal() > dealer.getHandTotal()) {
                 winners.add(player);
             }
 

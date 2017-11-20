@@ -3,7 +3,7 @@ package io.zipcoder.casino;
 import java.util.ArrayList;
 
 public abstract class CardGames implements Games {
-    private ArrayList<Player> players=new ArrayList<Player>();
+    private ArrayList<Player> players = new ArrayList<Player>();
     private Deck deck;
 
 
@@ -32,7 +32,7 @@ public abstract class CardGames implements Games {
         deck.shuffleDeck();
     }
 
-    public int getRemainingCards(){
+    public int getRemainingCards() {
         return deck.getRemainingCards();
     }
 
@@ -44,11 +44,11 @@ public abstract class CardGames implements Games {
         return players;
     }
 
-    public Card getCard(){
+    public Card getCard() {
         return deck.getCard();
     }
 
-    public void removePlayer(Player player){
+    public void removePlayer(Player player) {
         players.remove(player);
     }
 

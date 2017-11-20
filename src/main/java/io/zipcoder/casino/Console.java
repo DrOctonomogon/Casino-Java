@@ -1,4 +1,5 @@
 package io.zipcoder.casino;
+
 import java.util.Scanner;
 
 public class Console {
@@ -23,28 +24,28 @@ public class Console {
         } while (true);
     }
 
-    public static Card.Rank getRank(String prompt){
-        do{
-            try{
-                String userInput=getStringInput(prompt);
-                Card.Rank rank =Card.Rank.valueOf(userInput);
+    public static Card.Rank getRank(String prompt) {
+        do {
+            try {
+                String userInput = getStringInput(prompt);
+                Card.Rank rank = Card.Rank.valueOf(userInput);
                 return rank;
-            }catch (EnumConstantNotPresentException e){
+            } catch (EnumConstantNotPresentException e) {
                 System.out.println("Invalid Card Rank");
             }
-        }while(true);
+        } while (true);
     }
 
-    public static Card.Suit getSuit(String prompt){
-        do{
-            try{
-                String userInput=getStringInput(prompt);
-                Card.Suit suit =Card.Suit.valueOf(userInput);
+    public static Card.Suit getSuit(String prompt) {
+        do {
+            try {
+                String userInput = getStringInput(prompt);
+                Card.Suit suit = Card.Suit.valueOf(userInput);
                 return suit;
-            }catch (EnumConstantNotPresentException e){
+            } catch (EnumConstantNotPresentException e) {
                 System.out.println("Invalid Card Suit");
             }
-        }while(true);
+        } while (true);
     }
 
 }

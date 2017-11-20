@@ -7,34 +7,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DealerTest {
-    Dealer dealer = new Dealer();
-    Deck deck = new Deck(1);
+    Dealer dealer;
+    Deck deck;
 
-//    @Test
-//    public void bustTest() throws Exception {
-//        dealer.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.SPADE));
-//        dealer.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-//        dealer.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMOND));
-//
-//        System.out.println(dealer.getHandTotal());
-//        boolean expected = false;
-//        boolean actual = dealer.bust();
-//
-//        Assert.assertEquals(expected, actual);
-//    }
-//
-//    @Test
-//    public void bustTest2() throws Exception {
-//        dealer.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.SPADE));
-//        dealer.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-//        dealer.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMOND));
-//
-//        System.out.println(dealer.getHandTotal());
-//        boolean expected = true;
-//        boolean actual = dealer.bust();
-//
-//        Assert.assertEquals(expected, actual);
-//    }
+    @Before
+    public void setup() {
+        deck = new Deck(1);
+        dealer = new Dealer();
+    }
 
     @Test
     public void showOneCardTest() throws Exception {

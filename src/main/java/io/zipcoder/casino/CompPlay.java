@@ -20,8 +20,9 @@ public class CompPlay {
     }
 
     private static String basicHitOrStay(Player player) {
-        if (player.getHandTotal() < 12){
-            return "Hit";}
+        if (player.getHandTotal() < 12) {
+            return "Hit";
+        }
         if (player.getHandTotal() < 18)
             return "Stay";
         else {
