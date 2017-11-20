@@ -2,13 +2,13 @@ package io.zipcoder.casino;
 
 import java.util.ArrayList;
 
-public class Craps implements Games, Gamble {
+public class Craps   {
 
     public Integer takeBet(Player player) {
         return null;
     }
 
-    public void payOut(ArrayList<Player> winners) {
+    public void payOut(ArrayList<CardPlayer> winners) {
 
     }
 

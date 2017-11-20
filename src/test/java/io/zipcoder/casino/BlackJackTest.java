@@ -44,7 +44,8 @@ public class BlackJackTest {
     public void playerBetTest() throws Exception {
     }
 
-    Player player=new Player("Samwise", 10000, false);
+    Player player1=new Player("Samwise", 10000, false);
+    BlackJackGambler player=new BlackJackGambler(player1,1000);
     BlackJack blackJack=new BlackJack();
     ArrayList<Player> players=new ArrayList<Player>();
 
