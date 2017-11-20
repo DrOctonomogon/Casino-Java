@@ -27,7 +27,7 @@ public abstract class CardGames<T extends CardPlayer> implements Games<T> {
         deck.shuffleDeck();
     }
 
-    public int getRemainingCards(){
+    public int getRemainingCards() {
         return deck.getRemainingCards();
     }
 
@@ -39,7 +39,7 @@ public abstract class CardGames<T extends CardPlayer> implements Games<T> {
         return players;
     }
 
-    public Card getCard(){
+    public Card getCard() {
         return deck.getCard();
     }
 

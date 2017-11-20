@@ -8,7 +8,7 @@ public class Card {
         JOKER, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
 
         public int getValue() {
-            return ordinal()+1;
+            return ordinal() + 1;
         }
     }
 
@@ -28,13 +28,16 @@ public class Card {
     public int getValue() {
         return rank.getValue();
     }
-    public String getRank(){return rank.toString();}
+
+    public String getRank() {
+        return rank.toString();
+    }
 
     public Suit getSuit() {
         return suit;
     }
 
-    public String toString(){
-        return rank+" of "+suit;
+    public String toString() {
+        return rank + " of " + suit;
     }
 }

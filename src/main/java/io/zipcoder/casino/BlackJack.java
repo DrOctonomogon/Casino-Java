@@ -14,12 +14,12 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
     public void play(BlackJackGambler user) {
         gameSetUp(user);
         do {
-            System.out.println("Cards Left: "+getRemainingCards());
-            if(getRemainingCards()/getPlayers().size()<52)
+            System.out.println("Cards Left: " + getRemainingCards());
+            if (getRemainingCards() / getPlayers().size() < 52)
                 loadDecks(8);
             for (BlackJackGambler player : getPlayers()) {
                 System.out.println(player.getName() + " chips: " + player.getChipCount());
-                Integer bet=takeBet(player);
+                Integer bet = takeBet(player);
                 playerBet(player, bet);
             }
 
@@ -37,7 +37,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
             printPlayerHand(dealer);
             hitOrStay(dealer);
-
 
             if (!isBust(dealer)) {
                 ArrayList<BlackJackGambler> winners = findWinners();
@@ -69,12 +68,11 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             else userChoice = CompPlay.hitOrStay(player);
 
             if (userChoice.equalsIgnoreCase("Hit")) {
-                System.out.println(player.getName()+": Hit");
+                System.out.println(player.getName() + ": Hit");
                 Card card = getCard();
                 player.addCardToHand(card);
                 printPlayerHand(player);
-            }
-            else System.out.println(player.getName()+": Stay");
+            } else System.out.println(player.getName() + ": Stay");
         }
 
     }
@@ -100,7 +98,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         dealer.resetHand();
     }
 
-
     public Integer takeBet(BlackJackGambler player) {
         Integer bet;
         if (player.isPerson()) {
@@ -114,7 +111,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
     public void payOut(ArrayList<BlackJackGambler> winners) {
         for (BlackJackGambler player : winners) {
                 addWinnings(player, 2);
-
         }
     }
 
