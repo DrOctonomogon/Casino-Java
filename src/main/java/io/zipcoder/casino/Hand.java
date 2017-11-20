@@ -3,36 +3,39 @@ package io.zipcoder.casino;
 import java.util.ArrayList;
 
 public class Hand {
-    private ArrayList <Card> hand;
+    private ArrayList<Card> hand;
 
-    public Hand(){
-       hand= new ArrayList<Card>();
+    public Hand() {
+        hand = new ArrayList<Card>();
     }
 
-    public void addCard(Card card){
+    public void addCard(Card card) {
         hand.add(card);
     }
 
-    public void addCard(ArrayList<Card> cards){
+    public void addCard(ArrayList<Card> cards) {
         hand.addAll(cards);
     }
 
-    public void clearHand(){
+    public void clearHand() {
         hand.clear();
     }
 
-    public Card removeCard(Card.Rank rank){
-        Card card=null;
-        for(int i=0; i<hand.size(); i++)
-            if(hand.get(i).equals(rank))
-               card= hand.remove(i);
+    public Card removeCard(Card.Rank rank) {
+        Card card = null;
+        for (int i = 0; i < hand.size(); i++)
+            if (hand.get(i).equals(rank))
+                card = hand.remove(i);
         return card;
     }
 
-    public String toString(){
-        String cardsInHand=hand.get(0).toString();
-        for(int i=1; i<hand.size(); i++)
-            cardsInHand+="\n"+hand.get(i).toString();
+    public String toString() {
+        String cardsInHand = "Hand is Empty.";
+        if(hand.size() > 0) {
+            cardsInHand = hand.get(0).toString();
+            for (int i = 0; i < hand.size(); i++)
+                cardsInHand += "\n" + hand.get(i).toString();
+        }
         return cardsInHand;
     }
 

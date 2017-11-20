@@ -5,7 +5,7 @@ public class Casino {
 
     public Games games;
 
-    public static void start(){
+    public static void start() {
 
     }
 

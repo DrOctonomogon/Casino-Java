@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class GoFish extends CardGames<GoFishPlayer> {
 
-
-
     public void play(GoFishPlayer user) {
 
     }
@@ -14,11 +12,11 @@ public class GoFish extends CardGames<GoFishPlayer> {
 
     }
 
-    public boolean checkForSet(ArrayList<Card> hand){
+    public boolean checkForSet(ArrayList<Card> hand) {
         return false;
     }
 
-    public void giveCards(){
+    public void giveCards() {
 
     }
 

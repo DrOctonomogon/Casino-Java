@@ -22,11 +22,11 @@ public class Deck {
         return deck.remove(0);
     }
 
-    public int getRemainingCards(){
+    public int getRemainingCards() {
         return deck.size();
     }
 
-    public void shuffleDeck(){
+    public void shuffleDeck() {
         Collections.shuffle(deck);
     }
 }

@@ -8,7 +8,7 @@ public class Dealer extends BlackJackGambler{
     }
 
     public String showOneCard() {
-        return "Dealer: "+getHand().get(0);
+        return "Dealer: " + getHand().get(0);
     }
 
     public void resetHand() {
