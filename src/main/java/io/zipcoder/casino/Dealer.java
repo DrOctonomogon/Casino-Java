@@ -7,12 +7,6 @@ public class Dealer extends BlackJackGambler{
         super(new Player("Dealer",0, false),1000000000);
     }
 
-//    public boolean bust() {
-//        if (getHandTotal()>21)
-//            return true;
-//        return false;
-//    }
-
     public String showOneCard() {
         return "Dealer: "+getHand().get(0);
     }

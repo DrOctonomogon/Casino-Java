@@ -83,6 +83,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         for (int i = 1; i <= playersToAdd; i++)
             getPlayers().add(new BlackJackGambler(new Player ("Computer" + i, 0, false),5000));
     }
+
     public boolean isBust(BlackJackGambler player) {
         if (player.getHandTotal() > 21) {
             System.out.print("Busted ");

@@ -2,7 +2,7 @@ package io.zipcoder.casino;
 
 import java.util.ArrayList;
 
-public abstract class CardGames<T extends CardPlayer> implements Games {
+public abstract class CardGames<T extends CardPlayer> implements Games<T> {
     private ArrayList<T> players=new ArrayList<T>();
     private Deck deck;
 
@@ -17,11 +17,6 @@ public abstract class CardGames<T extends CardPlayer> implements Games {
             cardsToDeal--;
         }
     }
-
-//    public void addAIPlayers(int playersToAdd) {
-//        for (int i = 1; i <= playersToAdd; i++)
-//            players.add(new Player("Computer" + i, 1000, false));
-//    }
 
     public void addPlayer(T player) {
         players.add(player);
