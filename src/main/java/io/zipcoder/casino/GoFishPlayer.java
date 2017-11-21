@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import io.zipcoder.casino.Card.*;
 
 
 public class GoFishPlayer extends CardPlayer {
 
-    private ArrayList<Rank> completedSets = new ArrayList<>();
-    private int sets = 0;
+    private ArrayList<Rank> completedBooks = new ArrayList<>();
+    private int books = 0;
     private Map<Rank, Integer> cardMap;
 
     public GoFishPlayer(Player player) {
@@ -35,13 +34,16 @@ public class GoFishPlayer extends CardPlayer {
         return false;
     }
 
-    public void removeQuads() {
+    public boolean removeBooks() {
         for (Rank rank : cardMap.keySet())
             if (cardMap.get(rank) == 4) {
-                addCompletedQuads(rank);
+                CompPlay.removeRankFromPlayer(this, rank);
+                addCompletedBooks(rank);
                 giveCards(rank);
-                sets++;
+                books++;
+                return true;
             }
+        return false;
     }
 
 
@@ -57,18 +59,18 @@ public class GoFishPlayer extends CardPlayer {
     }
 
     public int getSetCount() {
-        return sets;
+        return books;
     }
 
-    private void addCompletedQuads(Rank rank) {
-        completedSets.add(rank);
+    private void addCompletedBooks(Rank rank) {
+        completedBooks.add(rank);
     }
 
-    public void printCompetedQuads() {
+    public String getCompletedBooks() {
         String complete = "";
-        for (Rank rank : completedSets)
+        for (Rank rank : completedBooks)
             complete += " {" + rank + "} ";
-        System.out.println(complete);
+        return complete;
     }
 
     @Override

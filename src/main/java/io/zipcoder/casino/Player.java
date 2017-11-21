@@ -61,7 +61,7 @@ public class Player {
 //        String card;
 //        int aces = 0;
 //        for (Card c : hand.getHand()) {
-//            card = c.getRank();
+//            card = c.getRankInput();
 //            if ("JACK".equals(card) || "QUEEN".equals(card) || "KING".equals(card))
 //                total += 10;
 //            else if ("ACE".equals(card)) {

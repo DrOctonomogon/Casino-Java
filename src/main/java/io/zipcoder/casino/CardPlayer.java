@@ -27,5 +27,8 @@ public abstract class CardPlayer extends Player {
         return hand.removeCard(rank);
     }
 
+    public String handToString(){
+        return hand.toString();
+    }
 }
 

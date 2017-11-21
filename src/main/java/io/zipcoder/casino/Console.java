@@ -24,19 +24,19 @@ public class Console {
         } while (true);
     }
 
-    public static Card.Rank getRank(String prompt) {
+    public static Card.Rank getRankInput(String prompt) {
         do {
             try {
                 String userInput = getStringInput(prompt);
                 Card.Rank rank = Card.Rank.valueOf(userInput);
                 return rank;
             } catch (EnumConstantNotPresentException e) {
-                System.out.println("Invalid Card Rank");
+                System.out.println("Invalid Card Choice");
             }
         } while (true);
     }
 
-    public static Card.Suit getSuit(String prompt) {
+    public static Card.Suit getSuitInput(String prompt) {
         do {
             try {
                 String userInput = getStringInput(prompt);

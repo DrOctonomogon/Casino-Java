@@ -67,7 +67,7 @@ public class GoFishPlayerTest {
         Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMOND);
         player.addCardToHand(threeDiamond);
         int expected=1;
-        player.removeQuads();
+        player.removeBooks();
         int actual =player.getSetCount();
 
         Assert.assertEquals(expected, actual);
@@ -76,11 +76,17 @@ public class GoFishPlayerTest {
     @Test
     public void getSetCountTest() throws Exception {
         Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMOND);
+        String expected=" {THREE}";
         player.addCardToHand(threeDiamond);
-        player.removeQuads();
-        player.printCompetedQuads();
+        player.removeBooks();
+        String actual =player.getCompletedBooks();
+
+        Assert.assertEquals(expected,actual);
     }
 
-
+    @Test
+    public void handToStringTest() throws Exception{
+        System.out.println(player.handToString());
+    }
 
 }
