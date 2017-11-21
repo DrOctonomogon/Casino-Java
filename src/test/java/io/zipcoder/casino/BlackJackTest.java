@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 public class BlackJackTest {
 
+    BlackJackGambler player=new BlackJackGambler(player1,1000);  
     Player p1;
     Player p2;
     Player p3;
@@ -87,7 +88,6 @@ public class BlackJackTest {
         }
 
         Assert.assertEquals(expected, actual);
-
 //        int expected = 3;
 //        int actual = players.size();
 //        Assert.assertEquals(expected, actual);

@@ -2,7 +2,7 @@ package io.zipcoder.casino;
 
 import java.util.ArrayList;
 
-public class Craps implements Games, Gamble {
+public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer>  {
 
     private String playAgain = "";
 
@@ -14,15 +14,15 @@ public class Craps implements Games, Gamble {
         d2.rollDie();
     }
 
-    public Integer takeBet(Player player) {
-        return null;
+        public Integer takeBet (CrapsPlayer player){
+            return null;
+        }
+
+    public void payOut(ArrayList<CrapsPlayer> winners) {
+
     }
 
-    public void payOut(ArrayList<Player> winners) {
-
-    }
-
-    public ArrayList<Player> findWinners() {
+    public ArrayList<CrapsPlayer> findWinners() {
         return null;
     }
 
@@ -30,11 +30,11 @@ public class Craps implements Games, Gamble {
 
     }
 
-    public void addWinnings(Player player, Integer multiplier) {
+    public void addWinnings(CrapsPlayer player, Integer multiplier) {
 
     }
 
-    public void play(Player user) {
+    public void play(CrapsPlayer user) {
 
         do {
             Die d1 = new Die();
@@ -51,17 +51,15 @@ public class Craps implements Games, Gamble {
 
             rollValue = d1.getValue() + d2.getValue();
 
-            if(rollValue == 7 || rollValue == 11) {
+            if (rollValue == 7 || rollValue == 11) {
                 // Win
                 // return pot * multiplier
                 // player is prompted to take winnings or play again with current winnings
-            }
-            else if(rollValue == 2 || rollValue == 3 || rollValue == 12) {
+            } else if (rollValue == 2 || rollValue == 3 || rollValue == 12) {
                 // Lose
                 // player loses pot
                 // player is prompted to play again
-            }
-            else {
+            } else {
 
                 do {
                     pointValue = rollValue;
@@ -71,43 +69,37 @@ public class Craps implements Games, Gamble {
                     rollDice();
                     rollValue = d1.getValue() + d2.getValue();
 
-                    switch(rollValue) {
+                    switch (rollValue) {
 
                         case 4:
-                            if(pointValue == 4) {
+                            if (pointValue == 4) {
                                 // Win
                                 // return pot + side bets
-                            }
-                            else if(pointValue == 10 && bet4or10 < 0) {
+                            } else if (pointValue == 10 && bet4or10 < 0) {
                                 // Win side bets in bet4or10
                                 //continue
-                            }
-                            else {
+                            } else {
                                 continue;
                             }
                             break;
                         case 5:
-                            if(pointValue == 5) {
+                            if (pointValue == 5) {
                                 // Win
                                 // return pot + side bets
-                            }
-                            else if(pointValue == 9 && bet5or9 < 0) {
+                            } else if (pointValue == 9 && bet5or9 < 0) {
                                 // Win side bet
                                 continue;
-                            }
-                            else {
+                            } else {
                                 continue;
                             }
                             break;
                         case 6:
-                            if(pointValue == 6) {
+                            if (pointValue == 6) {
                                 // Win
-                            }
-                            else if(pointValue == 8 && bet6or8 < 0) {
+                            } else if (pointValue == 8 && bet6or8 < 0) {
                                 // Win side bet
                                 //continue
-                            }
-                            else {
+                            } else {
                                 continue;
                             }
                             break;
@@ -117,52 +109,45 @@ public class Craps implements Games, Gamble {
                             // player is prompted to play again
                             break;
                         case 8:
-                            if(pointValue == 8) {
+                            if (pointValue == 8) {
                                 // Win
-                            }
-                            else if(pointValue == 6 && bet6or8 < 0) {
+                            } else if (pointValue == 6 && bet6or8 < 0) {
                                 // Win side bet
                                 //continue
-                            }
-                            else {
+                            } else {
                                 continue;
                             }
                             break;
                         case 9:
-                            if(pointValue == 9) {
+                            if (pointValue == 9) {
                                 // Win
-                            }
-                            else if(pointValue == 5 && bet5or9 < 0) {
+                            } else if (pointValue == 5 && bet5or9 < 0) {
                                 // Win side bet
                                 //continue
-                            }
-                            else {
+                            } else {
                                 continue;
                             }
                             break;
                         case 10:
-                            if(pointValue == 10) {
+                            if (pointValue == 10) {
                                 // Win
-                            }
-                            else if(pointValue == 4 && bet4or10 < 0) {
+                            } else if (pointValue == 4 && bet4or10 < 0) {
                                 // Win side bet
                                 //continue
-                            }
-                            else {
+                            } else {
                                 continue;
                             }
                             break;
                     }
 
                 }
-                while(rollValue != pointValue || rollValue != 7);
+                while (rollValue != pointValue || rollValue != 7);
 
-                if(rollValue == pointValue) {
+                if (rollValue == pointValue) {
                     // Win
                     // player loses initial bet
                     // player is prompted to play again
-                }
-                else if(rollValue == 7) {
+                } else if (rollValue == 7) {
                     // Lose
                     // player loses initial bet
                     // player is prompted to play again
@@ -172,7 +157,10 @@ public class Craps implements Games, Gamble {
 
             playAgain = Console.getStringInput("play again");
 
-        } while("yes".equalsIgnoreCase(playAgain));
+        } while ("yes".equalsIgnoreCase(playAgain));
+    }
+
+    public void addAIPlayers(int playersToAdd) {
 
     }
 

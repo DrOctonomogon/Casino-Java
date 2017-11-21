@@ -1,10 +1,10 @@
 package io.zipcoder.casino;
 
-public class Dealer extends Player {
+public class Dealer extends BlackJackGambler{
 
 
     public Dealer() {
-        super("Dealer", 1000000000, false);
+        super(new Player("Dealer",0, false),1000000000);
     }
 
     public String showOneCard() {
