@@ -22,7 +22,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
                 rank = playerCardChoice(player);
                 otherPlayer = chooseOtherPlayer(player);
                 System.out.println(player.getName() + " asks " + otherPlayer.getName() + " for any " + rank);
-                if (!goFish(player, otherPlayer, rank) && getRemainingCards() != 0) {
+                if (goFish(player, otherPlayer, rank) && getRemainingCards() > 0) {
                     Card card = getCard();
                     player.addCardToHand(card);
                 }
@@ -49,12 +49,12 @@ public class GoFish extends CardGames<GoFishPlayer> {
 
 
             //Console.getStringInput("press enter to continue");
-            return true;
+            return false;
         } else
         {
             System.out.println("no matches found");
             //Console.getStringInput("press enter to continue");
-            return false;
+            return true;
         }
 
     }
@@ -86,7 +86,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
 
     public void booksFound() {
         for (GoFishPlayer player : getPlayers())
-            System.out.println(player.getName() + " Completed Books: " + player.getCompletedBooks() + "||");
+            System.out.println(player.getName() + " Completed Books: " + player.getCompletedBooks());
     }
 
     public int booksRemaining() {

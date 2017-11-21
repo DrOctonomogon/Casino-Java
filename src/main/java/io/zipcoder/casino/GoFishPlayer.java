@@ -67,9 +67,9 @@ public class GoFishPlayer extends CardPlayer {
     }
 
     public String getCompletedBooks() {
-        String complete = "";
+        String complete = "||";
         for (Rank rank : completedBooks)
-            complete += " {" + rank + "} ";
+            complete += " {" + rank + "} ||";
         return complete;
     }
 

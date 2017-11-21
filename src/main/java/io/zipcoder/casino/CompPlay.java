@@ -78,7 +78,6 @@ public class CompPlay<T>{
     public static GoFishPlayer choosePlayer(GoFishPlayer player) {
         for (GoFishPlayer p:playerCards.keySet()){
             if(playerCards.get(p).contains(rank)&&!p.equals(player)){
-                System.out.println(playerCards.keySet());
                 return p;}
         }
         GoFishPlayer [] arr=playerCards.keySet().stream().toArray(GoFishPlayer[]::new);
