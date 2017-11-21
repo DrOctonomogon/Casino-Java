@@ -5,18 +5,31 @@ import java.util.ArrayList;
 
 public class Player {
     private String name;
-//    private Integer chipCount;
     private Hand hand;
-    private boolean isPerson;
     private Integer cash;
+    private boolean isPerson;
 
     public Player(String name, Integer cash, boolean isPerson) {
         this.name = name;
-//        chipCount = startingChips;
         this.isPerson = isPerson;
         this.cash=cash;
-//        hand = new Hand();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isPerson() {
+        return isPerson;
+    }
+
+    public Integer getCash() {
+        return cash;
+    }
+
+
+    // Code below this is all depricated
+    // Can be removed
 
 //    public void addCardToHand(Card card) {
 //        hand.addCard(card);
@@ -44,13 +57,7 @@ public class Player {
 //        else return true;
 //    }
 
-    public String getName() {
-        return name;
-    }
 
-    public boolean isPerson() {
-        return isPerson;
-    }
 
 //    public void clearHand() {
 //        hand = new Hand();
@@ -80,7 +87,5 @@ public class Player {
 //        return hand.getHand();
 //    }
 
-    public Integer getCash() {
-        return cash;
-    }
+
 }
