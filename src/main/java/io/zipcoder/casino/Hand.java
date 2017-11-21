@@ -22,16 +22,19 @@ public class Hand {
     }
 
     public Card removeCard(Card.Rank rank) {
-        Card card = null;
-        for (int i = 0; i < hand.size(); i++)
-            if (hand.get(i).equals(rank))
-                card = hand.remove(i);
-        return card;
+        Card cardToRemove = null;
+        for (Card card : hand)
+            if (card.getRank().equals(rank)) {
+                cardToRemove = card;
+                break;
+            }
+        hand.remove(cardToRemove);
+        return cardToRemove;
     }
 
     public String toString() {
         String cardsInHand = "Hand is Empty.";
-        if(hand.size() > 0) {
+        if (hand.size() > 0) {
             cardsInHand = hand.get(0).toString();
             for (int i = 0; i < hand.size(); i++)
                 cardsInHand += "\n" + hand.get(i).toString();

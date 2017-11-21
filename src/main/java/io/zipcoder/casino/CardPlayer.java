@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public abstract class CardPlayer extends Player {
     private Hand hand;
-    private boolean isPerson;
 
 
     public CardPlayer(Player player) {
         super(player.getName(), player.getCash(), player.isPerson());
         hand = new Hand();
     }
+
     public ArrayList<Card> getHand() {
         return hand.getHand();
     }
@@ -23,5 +23,9 @@ public abstract class CardPlayer extends Player {
         hand.addCard(card);
     }
 
+    public Card removeCard(Card.Rank rank) {
+        return hand.removeCard(rank);
     }
+
+}
 

@@ -252,7 +252,10 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         bet5or9 = 0;
         bet6or8 = 0;
     }
+  
+    public void addAIPlayers(int playersToAdd) {
 
+    }
 
 }
 
