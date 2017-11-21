@@ -23,11 +23,7 @@ public abstract class CardPlayer extends Player {
         hand.addCard(card);
     }
 
-    public void addCardToHand(ArrayList<Card> card) {
-        hand.addCard(card);
-    }
-
-    public Card removeCards(Card.Rank rank) {
+    public Card removeCard(Card.Rank rank) {
         return hand.removeCard(rank);
     }
 

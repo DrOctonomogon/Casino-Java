@@ -37,10 +37,10 @@ public class BlackJackGambler extends CardPlayer {
         String card;
         int aces = 0;
         for (Card c : getHand()) {
-            card = c.getRank();
+            card = c.getRank().toString();
             if ("JACK".equals(card) || "QUEEN".equals(card) || "KING".equals(card))
                 total += 10;
-            else if ("ACE".equals(card)) {
+            else if ("ACE".equals(card.toString())) {
                 total += 11;
                 aces++;
             } else total += c.getValue();

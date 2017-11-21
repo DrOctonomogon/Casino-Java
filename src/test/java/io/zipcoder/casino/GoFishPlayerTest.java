@@ -3,13 +3,10 @@ package io.zipcoder.casino;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import static org.junit.Assert.*;
 
 public class GoFishPlayerTest {
+
     Player joe = new Player("Joe", 1000, false);
     GoFishPlayer player = new GoFishPlayer(joe);
 
@@ -26,17 +23,19 @@ public class GoFishPlayerTest {
         player.addCardToHand(threeSpade);
         player.addCardToHand(fiveHeart);
         player.addCardToHand(QueenHeart);
+
     }
 
     @Test
-    public void giveCardsToOther() throws Exception {
+    public void giveCardsTest() throws Exception {
         String expected = " " + threeHeart + " " + threeClub + " " + threeSpade;
         String actual = "";
 
         String remainingExpected = "" + fiveHeart + QueenHeart;
         String remainingActual = "";
 
-        ArrayList<Card> cards = player.pullCards(Card.Rank.THREE);
+        ArrayList<Card> cards = player.giveCards(Card.Rank.THREE);
+
         for (Card card : cards)
             actual += " " + card;
 
@@ -48,8 +47,40 @@ public class GoFishPlayerTest {
 
     }
 
+
     @Test
-    public void findCards() throws Exception {
+    public void checkForCardTest1() throws Exception {
+        boolean expected =false;
+        boolean actual=player.checkForCard(Card.Rank.KING);
+        Assert.assertEquals(expected,actual);
     }
+
+    @Test
+    public void checkForCardTest2() throws Exception {
+        boolean expected =true;
+        boolean actual=player.checkForCard(Card.Rank.QUEEN);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void removeQuadsTest() throws Exception {
+        Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMOND);
+        player.addCardToHand(threeDiamond);
+        int expected=1;
+        player.removeQuads();
+        int actual =player.getSetCount();
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getSetCountTest() throws Exception {
+        Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMOND);
+        player.addCardToHand(threeDiamond);
+        player.removeQuads();
+        player.printCompetedQuads();
+    }
+
+
 
 }

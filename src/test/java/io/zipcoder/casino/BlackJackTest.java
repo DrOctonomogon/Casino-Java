@@ -9,27 +9,27 @@ import java.util.HashMap;
 
 public class BlackJackTest {
 
-    BlackJackGambler player=new BlackJackGambler(player1,1000);  
-    Player p1;
-    Player p2;
-    Player p3;
+    //BlackJackGambler player=new BlackJackGambler(player1,1000);
+    BlackJackGambler p1;
+    BlackJackGambler p2;
+    BlackJackGambler p3;
     BlackJack blackJack;
-    ArrayList<Player> players;
+    ArrayList<BlackJackGambler> players;
 
     @Before
     public void setup() {
         blackJack = new BlackJack();
-        players = new ArrayList<Player>();
+        players = new ArrayList<BlackJackGambler>();
 
-        p1 = new Player("Samwise", 10000, false);
-        p2 = new Player("Frodo", 10000, false);
-        p3 = new Player("Smeagol", 10, false);
+        p1 = new BlackJackGambler(new Player("Samwise", 10000, false),1000 );
+        p2 = new BlackJackGambler(new Player("Frodo", 10000, false),1000 );
+        p3 = new BlackJackGambler(new Player("Smeagol", 10, false),1000 );
 
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
+        blackJack.addPlayer(p1);
+        blackJack.addPlayer(p2);
+        blackJack.addPlayer(p3);
 
-        blackJack.gameSetUp(players.get(0));
+        blackJack.gameSetUp(p2);
 //        blackJack.gameSetUp(p3);
     }
 
@@ -81,16 +81,14 @@ public class BlackJackTest {
             expected.put(p, 0);
         }
 
+
         blackJack.resetHands();
 
-        for (Player p : players) {
+        for (BlackJackGambler p : players) {
             actual.put(p, p.getHand().size());
         }
 
         Assert.assertEquals(expected, actual);
-//        int expected = 3;
-//        int actual = players.size();
-//        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -127,19 +125,6 @@ public class BlackJackTest {
         Assert.assertNotEquals(chipsBefore, chipsAfter);
     }
 
-    @Test
-    public void hitOrStayTest() throws Exception {
-        blackJack.loadDecks(1);
-        p1.addCardToHand(new Card(Card.Rank.TWO, Card.Suit.SPADE));
-        p1.addCardToHand(new Card(Card.Rank.THREE, Card.Suit.DIAMOND));
-
-        System.out.println(p1.getHandTotal());
-        int expected = p1.getHand().size() + 1;
-        blackJack.hitOrStay(p1);
-        int actual = p1.getHand().size();
-
-        Assert.assertEquals(expected, actual);
-    }
 
     @Test
     public void findWinnersTest() throws Exception {

@@ -29,8 +29,8 @@ public class Card {
         return rank.getValue();
     }
 
-    public String getRank() {
-        return rank.toString();
+    public Rank getRank() {
+        return rank;
     }
 
     public Suit getSuit() {
