@@ -56,7 +56,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         loadDecks(8);
         int numberOfPlayers = new Random().nextInt(6) + 1;
         addAIPlayers(numberOfPlayers);
-        setPlayerWagers();
+//        setPlayerWagers();
     }
 
     public void hitOrStay(BlackJackGambler player) {

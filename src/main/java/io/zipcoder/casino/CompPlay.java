@@ -21,7 +21,7 @@ public class CompPlay<T>{
         else return basicHitOrStay(player);
     }
 
-    private static<T extends CardPlayer> String dealerHitOrStay(BlackJackGambler player) {
+    private static String dealerHitOrStay(BlackJackGambler player) {
         if (player.getHandTotal() >= 17)
             return "Stay";
         else return "Hit";
