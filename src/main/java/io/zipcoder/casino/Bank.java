@@ -13,11 +13,11 @@ public class Bank<T extends Player> {
     }
 
     public Integer takeBet(T player) {
-        Integer bet;
+        Integer bet=null;
         if (player.isPerson()) {
             bet = Console.getIntegerInput("Place your bet");
             playerBet(player, bet);
-        } else bet = CompPlay.makeBet(player);
+        } //else bet = CompPlay.makeBet(player);
 
         return bet;
     }
@@ -52,4 +52,4 @@ public class Bank<T extends Player> {
 
     }
 
-}
+//}
