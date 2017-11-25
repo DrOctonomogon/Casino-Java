@@ -12,7 +12,7 @@ public class CompPlay<T> {
 
 
     public static Integer makeBet(BlackJackGambler player) {
-        return player.placeBet(25);
+        return player.placeBet(250);
     }
 
     public static String hitOrStay(BlackJackGambler player) {

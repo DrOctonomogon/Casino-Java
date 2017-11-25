@@ -48,12 +48,12 @@ public class GoFish extends CardGames<GoFishPlayer> {
             System.out.println("Found " + cardsTaken.size() + " " + rank);
 
 
-            //Console.getStringInput("press enter to continue");
+            Console.getStringInput("press enter to continue");
             return false;
         } else
         {
             System.out.println("no matches found");
-            //Console.getStringInput("press enter to continue");
+            Console.getStringInput("press enter to continue");
             return true;
         }
 
@@ -100,8 +100,8 @@ public class GoFish extends CardGames<GoFishPlayer> {
         addPlayer(user);
         loadDecks(1);
 
-        //int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
-        addAIPlayers(2);
+        int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
+        addAIPlayers(numberOfPlayers);
         for (GoFishPlayer player : getPlayers())
             CompPlay.setUpPlayerCards(player);
         dealCards(5);
