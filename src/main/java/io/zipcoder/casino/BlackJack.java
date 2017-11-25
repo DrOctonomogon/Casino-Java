@@ -1,7 +1,6 @@
 package io.zipcoder.casino;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -14,11 +13,11 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
     public void play(BlackJackGambler user) {
         gameSetUp(user);
         do {
-            System.out.println("Cards Left: " + getRemainingCards());
-            if (getRemainingCards() / getPlayers().size() < 52)
+            System.out.println("Cards Left: " + getRemainingDeckCards());
+            if (getRemainingDeckCards() / getPlayers().size() < 52)
                 loadDecks(8);
+            System.out.println(user.getName()+" Chips: "+user.getChipCount()+"\n");
             for (BlackJackGambler player : getPlayers()) {
-                System.out.println(player.getName() + " chips: " + player.getChipCount());
                 Integer bet = takeBet(player);
                 playerBet(player, bet);
             }
@@ -29,18 +28,19 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
             System.out.println(dealer.showOneCard());
             for (BlackJackGambler player : getPlayers())
-                player.getHand();
+                System.out.println(player.getName()+" Cards: "+player.handToString());
 
             for (BlackJackGambler player : getPlayers())
                 hitOrStay(player);
 
-            dealer.getHand();
-            hitOrStay(dealer);
+            System.out.println("Dealers Cards: "+dealer.handToString()+" Total: "+dealer.getHandTotal()+"\n");
 
+            hitOrStay(dealer);
+            //System.out.println(dealer.handToString()+"Total: "+dealer.getHandTotal());
 
             for (BlackJackGambler player : getPlayers()) {
                 int multiplier = 0;
-                if (!isBust(dealer))
+                if (!isBust(dealer)&&!isBust(player))
                     multiplier = playerVsDealerPayout(player);
                 else if (!isBust(player))
                     multiplier = 2;
@@ -73,15 +73,15 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
             if (userChoice.equalsIgnoreCase("Hit")) {
                 System.out.println(player.getName() + ": Hit");
-                Card card = getCard();
+                Card card = getDeckCard();
                 player.addCardToHand(card);
-                player.getHand();
+                System.out.println(card+" New Total: "+player.getHandTotal()+"\n");
             } else if (userChoice.equalsIgnoreCase("Stay"))
-                System.out.println(player.getName() + ": Stay");
+                System.out.println(player.getName() + ": Stay\n");
         }
 
         if (isBust(player))
-            System.out.println(player.getName() + " went over: " + player.getHand());
+            System.out.println(player.getName() + " went over: " + player.getHand()+"\n");
     }
 
     public void addAIPlayers(int playersToAdd) {
@@ -119,7 +119,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
     public int playerVsDealerPayout(BlackJackGambler player) {
         if (player.getHandTotal() > dealer.getHandTotal()) {
-            System.out.println(player.getHandTotal() + " " + dealer.getHandTotal());
             return 2;
         } else if (player.getHandTotal() == dealer.getHandTotal())
             return 1;
@@ -136,7 +135,8 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         if (checkForBlackJack(player))
             multiplier += 0.5;
         Integer winnings = (int) (playerWagers.get(player).doubleValue() * multiplier);
-        System.out.println(player.getName() + " Winnings: " + winnings);
+        System.out.println(player.getName()+" "+player.handToString()+" Total: "+player.getHandTotal());
+        System.out.println(" Winnings: " + winnings+"\n");
         player.addChips(winnings);
     }
 

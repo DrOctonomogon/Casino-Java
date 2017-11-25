@@ -7,59 +7,71 @@ import java.util.ArrayList;
 public class GoFish extends CardGames<GoFishPlayer> {
 
     public void play(GoFishPlayer user) {
+
         gameSetUp(user);
 
-
-        while (booksRemaining() > 0){
+        while (booksRemaining() > 0) {
             System.out.println("Books remaining: " + booksRemaining());
             booksFound();
             System.out.println("Your Hand: " + user.handToString());
-            Rank rank = null;
+            Rank cardRank = null;
             GoFishPlayer otherPlayer = null;
             for (GoFishPlayer player : getPlayers()) {
-                if(player.getHand().size()==0)
+                if (player.getHand().size() == 0)
                     continue;
-                rank = playerCardChoice(player);
-                otherPlayer = chooseOtherPlayer(player);
-                System.out.println(player.getName() + " asks " + otherPlayer.getName() + " for any " + rank);
-                if (goFish(player, otherPlayer, rank) && getRemainingCards() > 0) {
-                    Card card = getCard();
+                cardRank = playerCardChoice(player);
+                otherPlayer = chooseOtherPlayer(player, cardRank);
+                System.out.println(player.getName() + " asks " + otherPlayer.getName() + " for any " + cardRank);
+                if (goFish(player, otherPlayer, cardRank) && getRemainingDeckCards() > 0) {
+                    Card card = getDeckCard();
                     player.addCardToHand(card);
                 }
-                if (player.removeBooks()) {
-                    System.out.println("Completed Book: " + rank);
-                }
+                player.removeBooks();
+
             }
-
-
         }
+
+        findWinner();
         CompPlay.clearPlayerCards();
-        System.out.println("game over");
+        System.out.println("Game Over");
     }
 
-    public boolean goFish(GoFishPlayer player, GoFishPlayer otherPlayer, Rank rank) {
-        CompPlay.addRankToPlayer(player, rank);
-        if (otherPlayer.checkForCard(rank)) {
+    private void findWinner() {
+        GoFishPlayer winner=null;
+        int topScore=0;
+        for(GoFishPlayer player:getPlayers()){
+            if(player.getPointTotal()>topScore){
+                winner=player;
+                topScore=player.getPointTotal();
+            }
+            System.out.println(player.getName()+": "+player.getPointTotal()+" points");
+        }
+        System.out.println("Winner: "+winner.getName()+" with "+topScore+" points!");
+    }
 
-            ArrayList<Card> cardsTaken = otherPlayer.giveCards(rank);
-            CompPlay.removeRankFromPlayer(otherPlayer, rank);
+    public boolean goFish(GoFishPlayer player, GoFishPlayer otherPlayer, Rank cardRank) {
+        CompPlay.addRankToPlayer(player, cardRank);
+        if (otherPlayer.checkForCard(cardRank)) {
+
+            ArrayList<Card> cardsTaken = otherPlayer.giveCards(cardRank);
+            CompPlay.removeRankFromPlayer(otherPlayer, cardRank);
             for (Card card : cardsTaken)
                 player.addCardToHand(card);
-            System.out.println("Found " + cardsTaken.size() + " " + rank);
+            System.out.println("Found " + cardsTaken.size() + " " + cardRank);
 
 
-            Console.getStringInput("press enter to continue");
+//            Console.getStringInput("press enter to continue");
             return false;
         } else
         {
             System.out.println("no matches found");
-            Console.getStringInput("press enter to continue");
+//            Console.getStringInput("press enter to continue");
             return true;
         }
 
     }
 
-    public GoFishPlayer chooseOtherPlayer(GoFishPlayer player) {
+    public GoFishPlayer chooseOtherPlayer(GoFishPlayer player, Rank cardRank) {
         Integer playerIndex;
         GoFishPlayer chosenPlayer;
         if (player.isPerson()) {
@@ -68,43 +80,42 @@ public class GoFish extends CardGames<GoFishPlayer> {
                 playerIndex = Console.getIntegerInput("\nWho has your card? ");
                 chosenPlayer = getPlayer(playerIndex);
             } while (chosenPlayer == null);
-        } else chosenPlayer = CompPlay.choosePlayer(player);
+        } else chosenPlayer = CompPlay.choosePlayer(player, cardRank);
         return chosenPlayer;
     }
 
 
     public Rank playerCardChoice(GoFishPlayer player) {
-        Rank rank;
+        Rank cardRank;
         if (player.isPerson()) {
-            player.handToString();
             do {
-                rank = Console.getRankInput("What card are you looking for?");
-            } while (!player.checkForCard(rank));
-        } else rank = CompPlay.chooseRank(player);
-        return rank;
+                cardRank = Console.getRankInput("What card are you looking for?");
+            } while (!player.checkForCard(cardRank));
+        } else cardRank = CompPlay.chooseRank(player);
+        return cardRank;
     }
 
     public void booksFound() {
         for (GoFishPlayer player : getPlayers())
-            System.out.println(player.getName() + " Completed Books: " + player.getCompletedBooks());
+            System.out.println(player.getName() + " Completed Books: " + player.completedBooksToString());
     }
 
     public int booksRemaining() {
-        int matchesMade = 0;
+        int booksMade = 0;
         for (GoFishPlayer player : getPlayers())
-            matchesMade += player.getSetCount();
-        return 13 - matchesMade;
+            booksMade += player.getBookCount();
+        return 13 - booksMade;
     }
 
     public void gameSetUp(GoFishPlayer user) {
         addPlayer(user);
         loadDecks(1);
 
-        int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
-        addAIPlayers(numberOfPlayers);
-        for (GoFishPlayer player : getPlayers())
-            CompPlay.setUpPlayerCards(player);
+//        int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
+        addAIPlayers(3);
         dealCards(5);
+        for(GoFishPlayer player:getPlayers())
+            CompPlay.setUpPlayerCards(player);
     }
 
     public void addAIPlayers(int playersToAdd) {
@@ -113,7 +124,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
     }
 
     public void printPlayers() {
-        for (int i = 0; i < getPlayers().size(); i++)
+        for (int i = 1; i < getPlayers().size(); i++)
             System.out.print(" " + i + ") " + getPlayer(i).getName());
     }
 

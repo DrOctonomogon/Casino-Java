@@ -5,8 +5,9 @@ import java.util.*;
 import io.zipcoder.casino.Card.*;
 
 public class CompPlay<T> {
-    private static Rank rank;
 
+
+    private List playerList;
     private static Random rand = new Random();
     private static Map<GoFishPlayer, Set<Rank>> playerCards = new HashMap<>();
 
@@ -58,41 +59,42 @@ public class CompPlay<T> {
         playerCards.clear();
     }
 
-    public static void addRankToPlayer(GoFishPlayer player, Rank rank) {
-        playerCards.get(player).add(rank);
+    public static void addRankToPlayer(GoFishPlayer player, Rank cardRank) {
+        playerCards.get(player).add(cardRank);
     }
 
 
-    public static void removeRankFromPlayer(GoFishPlayer player, Rank rank) {
-        playerCards.get(player).remove(rank);
+    public static void removeRankFromPlayer(GoFishPlayer player, Rank cardRank) {
+        playerCards.get(player).remove(cardRank);
     }
 
-    public static Card.Rank chooseRank(GoFishPlayer player) {
+    public static Rank chooseRank(GoFishPlayer player) {
+        Rank cardRank=null;
         for (Card card : player.getHand()) {
             for (GoFishPlayer fish : playerCards.keySet()) {
                 if (playerCards.get(fish).contains(card.getRank())) {
-                    rank = card.getRank();
-                    return rank;
+                    cardRank = card.getRank();
+                    return cardRank;
                 }
             }
         }
-        rank = player.getHand().get(player.getHand().size() - 1).getRank();
-        return rank;
+        cardRank = player.getHand().get(player.getHand().size() - 1).getRank();
+        return cardRank;
     }
 
-    public static GoFishPlayer choosePlayer(GoFishPlayer player) {
+    public static GoFishPlayer choosePlayer(GoFishPlayer player, Rank cardRank) {
         for (GoFishPlayer p : playerCards.keySet()) {
-            if (playerCards.get(p).contains(rank) && !p.equals(player)) {
+            if (playerCards.get(p).contains(cardRank)&&!player.equals(p)) {
                 return p;
             }
         }
         GoFishPlayer[] arr = playerCards.keySet().stream().toArray(GoFishPlayer[]::new);
-        GoFishPlayer other = null;
+        GoFishPlayer otherPlayer = null;
         do {
-            other = arr[rand.nextInt(arr.length)];
+            otherPlayer = arr[rand.nextInt(arr.length)];
         }
-        while (other.equals(player));
-        return other;
+        while (otherPlayer.equals(player)||otherPlayer.getHand().size()==0);
+        return otherPlayer;
     }
 
 

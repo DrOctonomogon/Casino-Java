@@ -15,7 +15,7 @@ public class GoFishPlayer extends CardPlayer {
 
     public GoFishPlayer(Player player) {
         super(player);
-        cardMap = new HashMap<>();
+        cardMap = new HashMap<Rank, Integer>();
     }
 
     public void mapNewCard(Card card) {
@@ -34,31 +34,28 @@ public class GoFishPlayer extends CardPlayer {
         return false;
     }
 
-    public boolean removeBooks() {
-        for (Rank rank : cardMap.keySet())
-            if (cardMap.get(rank) == 4) {
-                CompPlay.removeRankFromPlayer(this, rank);
-                addCompletedBooks(rank);
-                giveCards(rank);
-                books++;
-                return true;
-            }
-        return false;
-    }
-
-
     public ArrayList<Card> giveCards(Rank rank) {
 
         ArrayList<Card> cards = new ArrayList<>();
         while (checkForCard(rank)) {
             cards.add(removeCard(rank));
             mapCardRemoved(rank);
-
         }
         return cards;
     }
 
-    public int getSetCount() {
+    public void removeBooks() {
+        for (Rank rank : cardMap.keySet())
+            if (cardMap.get(rank) == 4) {
+                CompPlay.removeRankFromPlayer(this, rank);
+                addCompletedBooks(rank);
+                giveCards(rank);
+                books++;
+                System.out.println(getName() + " Completed Book: " + rank);
+            }
+    }
+
+    public int getBookCount() {
         return books;
     }
 
@@ -66,11 +63,18 @@ public class GoFishPlayer extends CardPlayer {
         completedBooks.add(rank);
     }
 
-    public String getCompletedBooks() {
-        String complete = "||";
+    public String completedBooksToString() {
+        String complete = "|";
         for (Rank rank : completedBooks)
-            complete += " {" + rank + "} ||";
+            complete += " {" + rank + "} |";
         return complete;
+    }
+
+    public int getPointTotal(){
+        int points=0;
+        for (Rank rank : completedBooks)
+            points+=rank.getValue();
+        return points;
     }
 
     @Override

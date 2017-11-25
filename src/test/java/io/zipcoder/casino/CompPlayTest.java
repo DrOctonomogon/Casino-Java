@@ -3,6 +3,11 @@ package io.zipcoder.casino;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import sun.plugin.cache.FileVersion;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -17,8 +22,10 @@ public class CompPlayTest {
 
      p1 = new GoFishPlayer(new Player("joe", 100, false));
      p2 = new GoFishPlayer(new Player("james", 100, false));
-     p3 = new GoFishPlayer(new Player("d", 100, false));
+     p3 = new GoFishPlayer(new Player("dave", 100, false));
 
+        ArrayList<GoFishPlayer> players=new ArrayList<>();
+        Collections.addAll(players,p1,p2,p3);
         CompPlay.setUpPlayerCards(p1);
         CompPlay.setUpPlayerCards(p2);
         CompPlay.setUpPlayerCards(p3);
@@ -36,7 +43,7 @@ public class CompPlayTest {
         CompPlay.addRankToPlayer(p3, Card.Rank.SEVEN);
 
         String after=CompPlay.getplayerCards();
-        System.out.println(after);
+
         Assert.assertNotEquals(before,after);
     }
 
@@ -86,7 +93,7 @@ public class CompPlayTest {
 
         String expected =p2.getName();
 
-        String actual=CompPlay.choosePlayer(p1).getName();
+        String actual=CompPlay.choosePlayer(p1, Card.Rank.FIVE).getName();
 
         Assert.assertEquals(expected,actual);
     }

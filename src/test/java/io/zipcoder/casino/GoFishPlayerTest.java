@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 public class GoFishPlayerTest {
 
-    Player joe = new Player("Joe", 1000, false);
+
+
+    GoFishPlayer joe = new GoFishPlayer(new Player("Joe", 1000, false));
     GoFishPlayer player = new GoFishPlayer(joe);
 
 
@@ -23,7 +25,7 @@ public class GoFishPlayerTest {
         player.addCardToHand(threeSpade);
         player.addCardToHand(fiveHeart);
         player.addCardToHand(QueenHeart);
-
+        CompPlay.setUpPlayerCards(player);
     }
 
     @Test
@@ -51,6 +53,7 @@ public class GoFishPlayerTest {
     @Test
     public void checkForCardTest1() throws Exception {
         boolean expected =false;
+
         boolean actual=player.checkForCard(Card.Rank.KING);
         Assert.assertEquals(expected,actual);
     }
@@ -63,23 +66,24 @@ public class GoFishPlayerTest {
     }
 
     @Test
-    public void removeQuadsTest() throws Exception {
+    public void removeBooksTest() throws Exception {
         Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMOND);
         player.addCardToHand(threeDiamond);
+        System.out.println(player.handToString());
         int expected=1;
         player.removeBooks();
-        int actual =player.getSetCount();
+        int actual =player.getBookCount();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getSetCountTest() throws Exception {
+    public void completedBooksToStringTest() throws Exception {
         Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMOND);
-        String expected=" {THREE}";
+        String expected="| {THREE} |";
         player.addCardToHand(threeDiamond);
         player.removeBooks();
-        String actual =player.getCompletedBooks();
+        String actual =player.completedBooksToString();
 
         Assert.assertEquals(expected,actual);
     }
@@ -89,4 +93,14 @@ public class GoFishPlayerTest {
         System.out.println(player.handToString());
     }
 
+    @Test
+    public void getPointTotalTest() throws Exception {
+        int expected=3;
+        Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMOND);
+        player.addCardToHand(threeDiamond);
+        player.removeBooks();
+        int actual=player.getPointTotal();
+
+        Assert.assertEquals(expected,actual);
+    }
 }

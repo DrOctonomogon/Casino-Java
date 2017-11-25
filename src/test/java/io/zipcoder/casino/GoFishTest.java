@@ -7,36 +7,12 @@ import static org.junit.Assert.*;
 
 public class GoFishTest {
     GoFish goFish=new GoFish();
-    GoFishPlayer jj=new GoFishPlayer(new Player("jj",10, false));
+    GoFishPlayer joe=new GoFishPlayer(new Player("joe",10, false));
 
     @Test
     public void play() throws Exception {
-        goFish.play(new GoFishPlayer(new Player("jj",10, false)));
+        goFish.play(joe);
     }
-
-    @Test
-    public void goFish() throws Exception {
-
-    }
-
-    @Test
-    public void chooseOtherPlayer() throws Exception {
-
-
-    }
-
-    @Test
-    public void playerCardChoice() throws Exception {
-    }
-
-    @Test
-    public void booksFound() throws Exception {
-    }
-
-    @Test
-    public void booksRemaining() throws Exception {
-    }
-
 
     @Test
     public void addAIPlayers() throws Exception {
@@ -49,8 +25,5 @@ public class GoFishTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
-    public void printPlayers() throws Exception {
-    }
 
 }
