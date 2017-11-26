@@ -13,7 +13,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
     public void play(BlackJackGambler user) {
         gameSetUp(user);
-        do{
+        do {
             if (getRemainingDeckCards() / getPlayers().size() < 52)
                 loadDecks(8);
             System.out.println(user.getName() + " Chips: " + user.getChipCount() + "\n");
@@ -47,7 +47,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             resetHands();
             resetBets();
             removeZeroChipPlayers();
-        }while ("yes".equalsIgnoreCase(playAgain));
+        } while ("yes".equalsIgnoreCase(playAgain));
 
     }
 
@@ -72,7 +72,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         Integer bet;
         if (player.isPerson()) {
             bet = Console.getIntegerInput("Place your bet");
-            bet=player.placeBet(bet);
+            bet = player.placeBet(bet);
         } else bet = CompPlay.makeBet(player);
 
         return bet;
