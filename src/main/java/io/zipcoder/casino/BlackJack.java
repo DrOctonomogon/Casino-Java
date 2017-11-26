@@ -106,7 +106,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return false;
     }
 
-    @Override
     public void checkForWinners() {
         for (BlackJackGambler player : getPlayers()) {
             int multiplier = 0;
