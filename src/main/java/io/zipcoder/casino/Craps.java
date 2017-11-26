@@ -45,7 +45,8 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
             if (rollValue == 7 || rollValue == 11) {
                 // Win
-                payOut(pot, 2);
+//                payOut(pot, 2);
+                bank.payOut(activePlayer, 2);
                 playAgain = Console.getStringInput("play again");
 
             } else if (rollValue == 2 || rollValue == 3 || rollValue == 12) {
@@ -212,17 +213,17 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
     }
 
-    private void placeSideBet() {
+    private void placeSideBet(CrapsPlayer player) {
 
         switch (getGroup()) {
             case 410:
-                bet4or10 = takeBet(activePlayer);
+                bet4or10 = takeBet(player);
                 break;
             case 59:
-                bet5or9 = takeBet(activePlayer);
+                bet5or9 = takeBet(player);
                 break;
             case 68:
-                bet6or8 = takeBet(activePlayer);
+                bet6or8 = takeBet(player);
                 break;
             case 0:
                 break;
@@ -244,12 +245,12 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         bet6or8 = 0;
     }
 
-    public void payOut(int value, int multiplier) {
-        activePlayer.addChips(value * multiplier);
+    public void payOut(CrapsPlayer player, int value, int multiplier) {
+        player.addChips(value * multiplier);
     }
 
-    @Override
-    public void payoutWinnings(CrapsPlayer player, double multiplier) {}
+//    @Override
+//    public void payoutWinnings(CrapsPlayer player, double multiplier) {}
 
 //    @Override
 //    public void checkForWinners() {}

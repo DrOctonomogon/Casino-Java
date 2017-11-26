@@ -26,10 +26,8 @@ public class Bank<T extends Player> {
         playerWagers.put(player, amount);
     }
 
-    public void payOut(ArrayList<T> winners) {
-        for (T person : winners) {
-                addWinnings(person, 2);
-        }
+    public void payOut(T player, int multiplier) {
+        addWinnings(player, multiplier);
     }
 
     public void resetBets(ArrayList<T> players) {

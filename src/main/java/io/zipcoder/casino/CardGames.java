@@ -6,6 +6,7 @@ public abstract class CardGames<T extends CardPlayer> implements Games<T> {
     private ArrayList<T> players = new ArrayList<T>();
     private Deck deck;
 
+    public abstract void addAIPlayers(int playersToAdd);
 
     public void dealCards(int cardsToDeal) {
         while (cardsToDeal > 0) {

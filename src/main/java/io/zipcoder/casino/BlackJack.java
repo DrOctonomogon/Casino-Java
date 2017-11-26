@@ -130,7 +130,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return false;
     }
 
-    @Override
     public void payoutWinnings(BlackJackGambler player, double multiplier) {
         if (checkForBlackJack(player))
             multiplier += 0.5;
