@@ -24,6 +24,8 @@ public class BlackJackGamblerTest {
 
     }
 
+
+
     @Test
     public void getChipCount() throws Exception {
         Integer expected = 1000;

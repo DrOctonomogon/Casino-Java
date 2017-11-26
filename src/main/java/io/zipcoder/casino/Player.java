@@ -9,7 +9,7 @@ public class Player {
     public Player(String name, Integer cash, boolean isPerson) {
         this.name = name;
         this.isPerson = isPerson;
-        this.cash=cash;
+        this.cash = cash;
     }
 
     public String getName() {
@@ -20,8 +20,19 @@ public class Player {
         return isPerson;
     }
 
-    public Integer getCash() {
+    public Integer getCash(){
         return cash;
+    }
+    public void addCash(Integer amount){
+        cash+=amount;
+    }
+
+    public Integer withdrawalCash(Integer amount) {
+        if (amount > cash)
+            return 0;
+        else
+            cash-=amount;
+        return amount;
     }
 
 }

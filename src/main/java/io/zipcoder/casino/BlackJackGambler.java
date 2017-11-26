@@ -19,6 +19,12 @@ public class BlackJackGambler extends CardPlayer {
         chipCount += amount;
     }
 
+    public Integer tradeInChips(){
+        Integer chips=chipCount;
+        chipCount=0;
+        return chips;
+    }
+
     public Integer placeBet(Integer amount) {
         if (wagerAvailable(amount))
             chipCount -= amount;

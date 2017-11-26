@@ -15,6 +15,12 @@ public class CrapsPlayer extends Player {
         return chipCount;
     }
 
+    public Integer tradeInChips(){
+        Integer chips=chipCount;
+        chipCount=0;
+        return chips;
+    }
+
     public void addChips(Integer amount) {
         chipCount += amount;
     }

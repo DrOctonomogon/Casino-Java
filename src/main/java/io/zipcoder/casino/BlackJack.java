@@ -13,7 +13,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
     public void play(BlackJackGambler user) {
         gameSetUp(user);
-        while ("yes".equalsIgnoreCase(playAgain)) {
+        do{
             if (getRemainingDeckCards() / getPlayers().size() < 52)
                 loadDecks(8);
             System.out.println(user.getName() + " Chips: " + user.getChipCount() + "\n");
@@ -36,14 +36,18 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             System.out.println("Dealers Cards: " + dealer.showHand() + "\n");
 
             hitOrStay(dealer);
-
             checkForWinners();
 
-            playAgain = Console.getStringInput("Play again?");
+            if (user.getChipCount() == 0) {
+                System.out.println("Your are out of chips, returning to lobby");
+                playAgain = "no";
+            } else
+                playAgain = Console.getStringInput("Play again?");
+
             resetHands();
             resetBets();
             removeZeroChipPlayers();
-        }
+        }while ("yes".equalsIgnoreCase(playAgain));
 
     }
 
@@ -109,14 +113,14 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         for (BlackJackGambler player : getPlayers()) {
             int multiplier = 0;
             if (!isBust(dealer) && !isBust(player))
-                multiplier = playerVsDealerPayout(player);
+                multiplier = payoutMultiplier(player);
             else if (!isBust(player))
                 multiplier = 2;
             payoutWinnings(player, multiplier);
         }
     }
 
-    public int playerVsDealerPayout(BlackJackGambler player) {
+    public int payoutMultiplier(BlackJackGambler player) {
         if (player.getHandTotal() > dealer.getHandTotal()) {
             return 2;
         } else if (player.getHandTotal() == dealer.getHandTotal())
@@ -148,6 +152,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             }
         getPlayers().removeAll(playersToRemove);
     }
+
 
     public void resetHands() {
         for (BlackJackGambler player : getPlayers())
