@@ -13,15 +13,13 @@ public class Card {
     }
 
     enum Suit {
-        CLUBS((char)'\u2663'), SPADES((char)'\u2660'), HEARTS((char)'\u2665'), DIAMONDS((char)'\u2664');
+        CLUBS((char)'\u2663'), SPADES((char)'\u2660'), HEARTS((char)'\u2665'), DIAMONDS((char)'\u2666');
 
         private char val;
          Suit(char val){
             this.val=val;
         }
-//        public char getVal(){
-//            return val;
-//        }
+
     }
 
 

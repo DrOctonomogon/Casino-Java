@@ -8,6 +8,9 @@ import static io.zipcoder.casino.Card.Suit.*;
 public class CardTest {
 
     Card card1= new Card(EIGHT, HEARTS);
+    Card card2= new Card(EIGHT, DIAMONDS);
+    Card card3= new Card(EIGHT, SPADES);
+    Card card4= new Card(EIGHT, CLUBS);
 
     @Test
     public void getValueTest() throws Exception {
@@ -21,6 +24,14 @@ public class CardTest {
         Card.Suit expected =HEARTS;
         Card.Suit actual=card1.getSuit();
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void suitValTest(){
+        System.out.println(card1);
+        System.out.println(card2);
+        System.out.println(card3);
+        System.out.println(card4);
     }
 
 }
