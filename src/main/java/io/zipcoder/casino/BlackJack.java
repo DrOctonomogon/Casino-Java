@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<BlackJackGambler> {
     private Dealer dealer;
-    private String playAgain = "";
+    private String playAgain = "yes";
     private Map<BlackJackGambler, Integer> playerWagers = new HashMap<BlackJackGambler, Integer>();
 
     public void play(BlackJackGambler user) {
@@ -105,7 +105,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return false;
     }
 
-    @Override
     public void checkForWinners() {
         for (BlackJackGambler player : getPlayers()) {
             int multiplier = 0;
