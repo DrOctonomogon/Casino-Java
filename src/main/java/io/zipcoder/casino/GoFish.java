@@ -48,7 +48,9 @@ public class GoFish extends CardGames<GoFishPlayer> {
     }
     @Override
     public void addAIPlayers(int playersToAdd) {
-        for (int i = 1; i < playersToAdd+1; i++)
+        if(playersToAdd==0)
+            playersToAdd=1;
+        for (int i = 1; i <= playersToAdd; i++)
             addPlayer(new GoFishPlayer(new Player("Computer" + i, 0, false)));
     }
 
@@ -63,11 +65,11 @@ public class GoFish extends CardGames<GoFishPlayer> {
             System.out.println("Found " + cardsTaken.size() + " " + cardRank);
 
 
-//            Console.getStringInput("press enter to continue");
+            Console.getStringInput("press enter to continue");
             return false;
         } else {
             System.out.println("no matches found");
-//            Console.getStringInput("press enter to continue");
+            Console.getStringInput("press enter to continue");
             return true;
         }
     }

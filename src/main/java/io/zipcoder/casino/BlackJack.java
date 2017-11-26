@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<BlackJackGambler> {
     private Dealer dealer;
-    private String playAgain = "yes";
+    private String playAgain = "";
     private Map<BlackJackGambler, Integer> playerWagers = new HashMap<BlackJackGambler, Integer>();
 
     public void play(BlackJackGambler user) {
