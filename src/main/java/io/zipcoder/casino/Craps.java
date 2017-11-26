@@ -1,7 +1,5 @@
 package io.zipcoder.casino;
 
-import java.util.ArrayList;
-
 public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
     private String playAgain = "yes";
@@ -197,7 +195,7 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         return retValue;
 
     }
-    
+
     @Override
     public void resetBets() {
         pot = 0;
