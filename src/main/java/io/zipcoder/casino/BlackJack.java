@@ -10,11 +10,10 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
     private Dealer dealer;
     private String playAgain = "yes";
     private Map<BlackJackGambler, Integer> playerWagers = new HashMap<BlackJackGambler, Integer>();
-//    private Bank bank=new Bank();
 
     public void play(BlackJackGambler user) {
         gameSetUp(user);
-        while ("yes".equalsIgnoreCase(playAgain)) {
+        do{
             if (getRemainingDeckCards() / getPlayers().size() < 52)
                 loadDecks(8);
             System.out.println(user.getName() + " Chips: " + user.getChipCount() + "\n");
@@ -37,14 +36,18 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             System.out.println("Dealers Cards: " + dealer.showHand() + "\n");
 
             hitOrStay(dealer);
-
             checkForWinners();
 
-            playAgain = Console.getStringInput("Play again?");
+            if (user.getChipCount() == 0) {
+                System.out.println("Your are out of chips, returning to lobby");
+                playAgain = "no";
+            } else
+                playAgain = Console.getStringInput("Play again?");
+
             resetHands();
             resetBets();
             removeZeroChipPlayers();
-        }
+        }while ("yes".equalsIgnoreCase(playAgain));
 
     }
 

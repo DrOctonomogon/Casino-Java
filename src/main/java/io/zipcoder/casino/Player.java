@@ -24,12 +24,12 @@ public class Player {
         return cash;
     }
 
-    public Integer withdrawalCash(Integer amount) {
+    public boolean withdrawalCash(Integer amount) {
         if (amount > cash)
-            return 0;
+            return false;
         else
             cash-=amount;
-        return amount;
+        return true;
     }
 
 }
