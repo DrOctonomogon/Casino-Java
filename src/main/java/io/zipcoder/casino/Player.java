@@ -23,13 +23,16 @@ public class Player {
     public Integer getCash(){
         return cash;
     }
+    public void addCash(Integer amount){
+        cash+=amount;
+    }
 
-    public boolean withdrawalCash(Integer amount) {
+    public Integer withdrawalCash(Integer amount) {
         if (amount > cash)
-            return false;
+            return 0;
         else
             cash-=amount;
-        return true;
+        return amount;
     }
 
 }

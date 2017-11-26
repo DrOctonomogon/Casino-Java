@@ -7,6 +7,7 @@ public class Casino {
 
     private String playerName;
     private Player player;
+    private CasinoCage casinoCage = new CasinoCage();
 
     public void start() {
 
@@ -51,10 +52,15 @@ public class Casino {
         Craps craps = new Craps();
         CrapsPlayer gambler;
 
-        Integer chips = Console.getIntegerInput("How many chips would you like to purchase? ($" + player.getCash() + " avail.)");
-        if (player.withdrawalCash(chips) && chips > 0) {
+        Integer chipReq = Console.getIntegerInput("How many chips would you like to purchase? ($" + player.getCash() + " avail.)");
+        chipReq = player.withdrawalCash(chipReq);
+        if (chipReq > 0) {
+            Integer chips = casinoCage.payoutChips(chipReq);
             gambler = new CrapsPlayer(player, chips);
             craps.play(gambler);
+            chips=gambler.tradeInChips();
+            Integer winnings=casinoCage.payoutCash(chips);
+            player.addCash(winnings);
         } else System.out.println("Sorry invalid amount");
 
     }
@@ -62,11 +68,18 @@ public class Casino {
     private void playBlackJack() {
         BlackJack blackJack = new BlackJack();
         BlackJackGambler gambler;
-        Integer chips = Console.getIntegerInput("How many chips would you like to purchase? ($" + player.getCash() + " avail.)");
-        if (player.withdrawalCash(chips) && chips > 0) {
+        Integer chipReq = Console.getIntegerInput("How many chips would you like to purchase? ($" + player.getCash() + " avail.)");
+        chipReq = player.withdrawalCash(chipReq);
+        if (chipReq > 0) {
+            Integer chips = casinoCage.payoutChips(chipReq);
             gambler = new BlackJackGambler(player, chips);
             blackJack.play(gambler);
+            chips=gambler.tradeInChips();
+            Integer winnings=casinoCage.payoutCash(chips);
+            player.addCash(winnings);
         } else System.out.println("Sorry invalid amount");
+
+
     }
 
     private void playGoFish() {
@@ -75,4 +88,20 @@ public class Casino {
         goFish.play(goFishPlayer);
     }
 
+    private class CasinoCage {
+        Integer bankRoll = 100000000;
+
+
+        public Integer payoutChips(Integer chipReq) {
+            if (chipReq < bankRoll) {
+                bankRoll += chipReq;
+            }
+            return chipReq;
+        }
+
+        public Integer payoutCash(Integer chipCount) {
+            bankRoll-=chipCount;
+            return chipCount;
+        }
+    }
 }

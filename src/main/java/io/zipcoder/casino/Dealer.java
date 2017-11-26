@@ -4,7 +4,7 @@ public class Dealer extends BlackJackGambler{
 
 
     public Dealer() {
-        super(new Player("Dealer",0, false),1000000000);
+        super(new Player("Dealer",0, false),10);
     }
 
     public String showOneCard() {
