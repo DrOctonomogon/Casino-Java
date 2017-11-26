@@ -72,7 +72,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         Integer bet;
         if (player.isPerson()) {
             bet = Console.getIntegerInput("Place your bet");
-            player.placeBet(bet);
+            bet=player.placeBet(bet);
         } else bet = CompPlay.makeBet(player);
 
         return bet;

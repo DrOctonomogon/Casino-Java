@@ -45,11 +45,24 @@ public class BlackJackGamblerTest {
 
     @Test
     public void placeBet() throws Exception {
-
+        Integer expectedBalance = player.getChipCount()-500;
         Integer expected = 500;
         Integer actual = player.placeBet(500);
+        Integer actualBalance=player.getChipCount();
 
         Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expectedBalance,actualBalance);
+    }
+
+    @Test
+    public void placeBet2() throws Exception {
+
+        Integer expectedBalance = player.getChipCount()-player.getChipCount();
+        Integer expected = 1000;
+        Integer actual = player.placeBet(1050);
+        Integer actualBalance=player.getChipCount();
+        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expectedBalance,actualBalance);
     }
 
     @Test
