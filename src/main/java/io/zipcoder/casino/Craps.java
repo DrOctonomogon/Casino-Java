@@ -267,23 +267,18 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         return null;
     }
 
-   // @Override
-    public void payOut(ArrayList<CrapsPlayer> winners) {
+    @Override
+    public void payoutWinnings(CrapsPlayer player, double multiplier) {
 
     }
 
+    @Override
+    public void checkForWinners() {
 
-    public ArrayList<CrapsPlayer> findWinners() {
-        return null;
     }
 
     @Override
     public void resetBets() {
-
-    }
-
-    //@Override
-    public void addWinnings(CrapsPlayer player, Integer multiplier) {
 
     }
 }
@@ -292,7 +287,7 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 //        resetPlayerWagers();
 //    }
 //
-//    public void addWinnings(CrapsPlayer player, Integer multiplier) {
+//    public void payoutWinnings(CrapsPlayer player, Integer multiplier) {
 //        Integer winnings = (pot * multiplier) + sideBets;
 //        System.out.println(player.getName() + " Winnings: " + winnings);
 //        player.addChips(winnings);

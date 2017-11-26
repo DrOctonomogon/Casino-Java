@@ -11,7 +11,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
         gameSetUp(user);
 
         while (booksRemaining() > 0) {
-            System.out.println("Books remaining: "+ booksRemaining());
+            System.out.println("Books remaining: " + booksRemaining());
             booksFound();
             System.out.println("Your Hand: " + user.handToString());
             Rank cardRank = null;
@@ -27,26 +27,28 @@ public class GoFish extends CardGames<GoFishPlayer> {
                     player.addCardToHand(card);
                 }
                 player.removeBooks();
-
             }
         }
 
         findWinner();
         CompPlay.clearPlayerCards();
-        System.out.println("Game Over");
+        Console.getStringInput("Game Over, Press any key to return to the lobby.");
     }
 
-    private void findWinner() {
-        GoFishPlayer winner=null;
-        int topScore=0;
-        for(GoFishPlayer player:getPlayers()){
-            if(player.getPointTotal()>topScore){
-                winner=player;
-                topScore=player.getPointTotal();
-            }
-            System.out.println(player.getName()+": "+player.getPointTotal()+" points");
-        }
-        System.out.println("Winner: "+winner.getName()+" with "+topScore+" points!");
+    public void gameSetUp(GoFishPlayer user) {
+        addPlayer(user);
+        loadDecks(1);
+
+        int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
+        addAIPlayers(numberOfPlayers);
+        dealCards(5);
+        for (GoFishPlayer player : getPlayers())
+            CompPlay.setUpPlayerCards(player);
+    }
+
+    public void addAIPlayers(int playersToAdd) {
+        for (int i = 1; i <= playersToAdd; i++)
+            addPlayer(new GoFishPlayer(new Player("Computer" + i, 0, false)));
     }
 
     public boolean goFish(GoFishPlayer player, GoFishPlayer otherPlayer, Rank cardRank) {
@@ -62,13 +64,11 @@ public class GoFish extends CardGames<GoFishPlayer> {
 
 //            Console.getStringInput("press enter to continue");
             return false;
-        } else
-        {
+        } else {
             System.out.println("no matches found");
 //            Console.getStringInput("press enter to continue");
             return true;
         }
-
     }
 
     public GoFishPlayer chooseOtherPlayer(GoFishPlayer player, Rank cardRank) {
@@ -107,25 +107,21 @@ public class GoFish extends CardGames<GoFishPlayer> {
         return 13 - booksMade;
     }
 
-    public void gameSetUp(GoFishPlayer user) {
-        addPlayer(user);
-        loadDecks(1);
-
-        int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
-        addAIPlayers(numberOfPlayers);
-        dealCards(5);
-        for(GoFishPlayer player:getPlayers())
-            CompPlay.setUpPlayerCards(player);
-    }
-
-    public void addAIPlayers(int playersToAdd) {
-        for (int i = 1; i <= playersToAdd; i++)
-            addPlayer(new GoFishPlayer(new Player("Computer" + i, 0, false)));
-    }
-
     public void printPlayers() {
         for (int i = 1; i < getPlayers().size(); i++)
             System.out.print(" " + i + ") " + getPlayer(i).getName());
     }
 
+    private void findWinner() {
+        GoFishPlayer winner = null;
+        int topScore = 0;
+        for (GoFishPlayer player : getPlayers()) {
+            if (player.getPointTotal() > topScore) {
+                winner = player;
+                topScore = player.getPointTotal();
+            }
+            System.out.println(player.getName() + ": " + player.getPointTotal() + " points");
+        }
+        System.out.println("Winner: " + winner.getName() + " with " + topScore + " points!");
+    }
 }

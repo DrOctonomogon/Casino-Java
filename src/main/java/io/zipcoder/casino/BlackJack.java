@@ -16,7 +16,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         while ("yes".equalsIgnoreCase(playAgain)) {
             if (getRemainingDeckCards() / getPlayers().size() < 52)
                 loadDecks(8);
-            System.out.println(user.getName()+" Chips: "+user.getChipCount()+"\n");
+            System.out.println(user.getName() + " Chips: " + user.getChipCount() + "\n");
             for (BlackJackGambler player : getPlayers()) {
                 Integer bet = takeBet(player);
                 playerBet(player, bet);
@@ -33,35 +33,18 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             for (BlackJackGambler player : getPlayers())
                 hitOrStay(player);
 
-            System.out.println("Dealers Cards: "+dealer.showHand()+"\n");
+            System.out.println("Dealers Cards: " + dealer.showHand() + "\n");
 
             hitOrStay(dealer);
 
-            for (BlackJackGambler player : getPlayers()) {
-                int multiplier = 0;
-                if (!isBust(dealer)&&!isBust(player))
-                    multiplier = playerVsDealerPayout(player);
-                else if (!isBust(player))
-                    multiplier = 2;
-                addWinnings(player, multiplier);
-            }
+            checkForWinners();
 
             playAgain = Console.getStringInput("Play again?");
             resetHands();
-            resetBets();;
+            resetBets();
             removeZeroChipPlayers();
         }
 
-    }
-
-    public void removeZeroChipPlayers() {
-        ArrayList<BlackJackGambler>playersToRemove=new ArrayList<>();
-        for(BlackJackGambler player: getPlayers())
-            if (player.getChipCount()==0&&!player.isPerson()){
-                System.out.println(player.getName()+" ran out of chips, now leaving.");
-                playersToRemove.add(player);
-        }
-        getPlayers().removeAll(playersToRemove);
     }
 
     public void gameSetUp(BlackJackGambler user) {
@@ -71,6 +54,27 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         int numberOfPlayers = new Random().nextInt(6) + 1;
         addAIPlayers(numberOfPlayers);
         resetBets();
+    }
+
+    @Override
+    public void addAIPlayers(int playersToAdd) {
+        for (int i = 1; i <= playersToAdd; i++)
+            getPlayers().add(new BlackJackGambler(new Player("Computer" + i, 0, false), 3000));
+    }
+
+    @Override
+    public Integer takeBet(BlackJackGambler player) {
+        Integer bet;
+        if (player.isPerson()) {
+            bet = Console.getIntegerInput("Place your bet");
+            player.placeBet(bet);
+        } else bet = CompPlay.makeBet(player);
+
+        return bet;
+    }
+
+    public void playerBet(BlackJackGambler player, Integer amount) {
+        playerWagers.put(player, amount);
     }
 
     public void hitOrStay(BlackJackGambler player) {
@@ -85,18 +89,13 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
                 System.out.println(player.getName() + ": Hit");
                 Card card = getDeckCard();
                 player.addCardToHand(card);
-                System.out.println(card+" New Total: "+player.getHandTotal()+"\n");
+                System.out.println(card + " New Total: " + player.getHandTotal() + "\n");
             } else if (userChoice.equalsIgnoreCase("Stay"))
                 System.out.println(player.getName() + ": Stay\n");
         }
 
         if (isBust(player))
-            System.out.println(player.getName() + " went over: " + player.getHand()+"\n");
-    }
-
-    public void addAIPlayers(int playersToAdd) {
-        for (int i = 1; i <= playersToAdd; i++)
-            getPlayers().add(new BlackJackGambler(new Player("Computer" + i, 0, false), 3000));
+            System.out.println(player.getName() + " went over: " + player.getHand() + "\n");
     }
 
     public boolean isBust(BlackJackGambler player) {
@@ -106,25 +105,16 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return false;
     }
 
-    public void resetHands() {
-        for (BlackJackGambler player : getPlayers())
-            player.clearHand();
-        dealer.resetHand();
-    }
-
-    public Integer takeBet(BlackJackGambler player) {
-        Integer bet;
-        if (player.isPerson()) {
-            bet = Console.getIntegerInput("Place your bet");
-            player.placeBet(bet);
-        } else bet = CompPlay.makeBet(player);
-
-        return bet;
-    }
-
-    public void resetBets() {
-        for (BlackJackGambler player : getPlayers())
-            playerWagers.put(player, 0);
+    @Override
+    public void checkForWinners() {
+        for (BlackJackGambler player : getPlayers()) {
+            int multiplier = 0;
+            if (!isBust(dealer) && !isBust(player))
+                multiplier = playerVsDealerPayout(player);
+            else if (!isBust(player))
+                multiplier = 2;
+            payoutWinnings(player, multiplier);
+        }
     }
 
     public int playerVsDealerPayout(BlackJackGambler player) {
@@ -141,17 +131,36 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return false;
     }
 
-    public void addWinnings(BlackJackGambler player, double multiplier) {
+    @Override
+    public void payoutWinnings(BlackJackGambler player, double multiplier) {
         if (checkForBlackJack(player))
             multiplier += 0.5;
         Integer winnings = (int) (playerWagers.get(player).doubleValue() * multiplier);
         System.out.println(player.showHand());
-        System.out.println(" Winnings: " + winnings+"\n");
+        System.out.println(" Winnings: " + winnings + "\n");
         player.addChips(winnings);
     }
 
-    public void playerBet(BlackJackGambler player, Integer amount) {
-        playerWagers.put(player, amount);
+    public void removeZeroChipPlayers() {
+        ArrayList<BlackJackGambler> playersToRemove = new ArrayList<>();
+        for (BlackJackGambler player : getPlayers())
+            if (player.getChipCount() == 0 && !player.isPerson()) {
+                System.out.println(player.getName() + " ran out of chips, now leaving.");
+                playersToRemove.add(player);
+            }
+        getPlayers().removeAll(playersToRemove);
+    }
+
+    public void resetHands() {
+        for (BlackJackGambler player : getPlayers())
+            player.clearHand();
+        dealer.resetHand();
+    }
+
+    @Override
+    public void resetBets() {
+        for (BlackJackGambler player : getPlayers())
+            playerWagers.put(player, 0);
     }
 
 }

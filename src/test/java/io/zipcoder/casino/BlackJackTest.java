@@ -93,7 +93,7 @@ public class BlackJackTest {
         blackJack.playerBet(p1, 250);
 
         Integer expected = p1.getChipCount()+500;
-        blackJack.addWinnings(p1,2);
+        blackJack.payoutWinnings(p1,2);
         Integer actual = p1.getChipCount();
 
         Assert.assertEquals(expected, actual);
@@ -108,7 +108,7 @@ public class BlackJackTest {
         blackJack.playerBet(p1, 250);
 
         Integer expected = p1.getChipCount();
-        blackJack.addWinnings(p1,0);
+        blackJack.payoutWinnings(p1,0);
         Integer actual = p1.getChipCount();
 
         Assert.assertEquals(expected, actual);
@@ -122,7 +122,7 @@ public class BlackJackTest {
         blackJack.playerBet(p1, 250);
 
         Integer expected = p1.getChipCount()+625;
-        blackJack.addWinnings(p1,2);
+        blackJack.payoutWinnings(p1,2);
         Integer actual = p1.getChipCount();
 
         Assert.assertEquals(expected, actual);
@@ -137,7 +137,7 @@ public class BlackJackTest {
 
         int expected = p3.getChipCount() + bet;
 
-        blackJack.addWinnings(p3, 1);
+        blackJack.payoutWinnings(p3, 1);
 
         int actual = p3.getChipCount();
 
