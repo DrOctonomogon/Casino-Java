@@ -35,6 +35,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
         Console.getStringInput("Game Over, Press any key to return to the lobby.");
     }
 
+    @Override
     public void gameSetUp(GoFishPlayer user) {
         addPlayer(user);
         loadDecks(1);
@@ -45,13 +46,13 @@ public class GoFish extends CardGames<GoFishPlayer> {
         for (GoFishPlayer player : getPlayers())
             CompPlay.setUpPlayerCards(player);
     }
-
+    @Override
     public void addAIPlayers(int playersToAdd) {
         for (int i = 1; i < playersToAdd+1; i++)
             addPlayer(new GoFishPlayer(new Player("Computer" + i, 0, false)));
     }
 
-    public boolean goFish(GoFishPlayer player, GoFishPlayer otherPlayer, Rank cardRank) {
+    private boolean goFish(GoFishPlayer player, GoFishPlayer otherPlayer, Rank cardRank) {
         CompPlay.addRankToPlayer(player, cardRank);
         if (otherPlayer.checkForCard(cardRank)) {
 
@@ -71,7 +72,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
         }
     }
 
-    public GoFishPlayer chooseOtherPlayer(GoFishPlayer player, Rank cardRank) {
+    private GoFishPlayer chooseOtherPlayer(GoFishPlayer player, Rank cardRank) {
         Integer playerIndex;
         GoFishPlayer chosenPlayer;
         if (player.isPerson()) {
@@ -85,7 +86,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
     }
 
 
-    public Rank playerCardChoice(GoFishPlayer player) {
+    private Rank playerCardChoice(GoFishPlayer player) {
         Rank cardRank;
         if (player.isPerson()) {
             do {
@@ -95,19 +96,19 @@ public class GoFish extends CardGames<GoFishPlayer> {
         return cardRank;
     }
 
-    public void booksFound() {
+    private void booksFound() {
         for (GoFishPlayer player : getPlayers())
             System.out.println(player.getName() + " Completed Books: " + player.completedBooksToString());
     }
 
-    public int booksRemaining() {
+    private int booksRemaining() {
         int booksMade = 0;
         for (GoFishPlayer player : getPlayers())
             booksMade += player.getBookCount();
         return 13 - booksMade;
     }
 
-    public void printPlayers() {
+    private void printPlayers() {
         for (int i = 1; i < getPlayers().size(); i++)
             System.out.print(" " + i + ") " + getPlayer(i).getName());
     }
