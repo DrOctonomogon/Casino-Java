@@ -27,7 +27,6 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
             int pointValue;
             int rollValue;
 
-
             pot = takeBet(player);
 
             rollDice();
@@ -51,94 +50,9 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                     rollDice();
                     rollValue = d1.getValue() + d2.getValue();
 
-                    switch (rollValue) {
+                    int winnings = handlePointerRoll(pointValue, rollValue);
 
-                        case 4:
-                            if (pointValue == 4) {
-                                int total = pot + bet4or10;
-                                payOut(player, total, 2);
-                                pot = 0;
-                                clearSideBets();
-                            } else if (pointValue == 10 && bet4or10 < 0) {
-                                payOut(player, bet4or10, 1);
-                                clearSideBets();
-                            } else {
-                                clearSideBets();
-                            }
-                            break;
-                        case 5:
-                            if (pointValue == 5) {
-                                int total = pot + bet4or10;
-                                payOut(player, total, 2);
-                                pot = 0;
-                                clearSideBets();
-                            } else if (pointValue == 9 && bet5or9 < 0) {
-                                payOut(player, bet5or9, 1);
-                                clearSideBets();
-                            } else {
-                                clearSideBets();
-                            }
-                            break;
-                        case 6:
-                            if (pointValue == 6) {
-                                int total = pot + bet6or8;
-                                payOut(player, total, 2);
-                                pot = 0;
-                                clearSideBets();
-                            } else if (pointValue == 8 && bet6or8 < 0) {
-                                payOut(player, bet6or8, 1);
-                                clearSideBets();
-                            } else {
-                                clearSideBets();
-                            }
-                            break;
-                        case 7:
-                            // Lose
-                            clearSideBets();
-                            break;
-                        case 8:
-                            if (pointValue == 8) {
-                                int total = pot + bet6or8;
-                                payOut(player, total, 2);
-                                pot = 0;
-                                clearSideBets();
-                            } else if (pointValue == 6 && bet6or8 < 0) {
-                                payOut(player, bet6or8, 1);
-                                clearSideBets();
-                            } else {
-                                clearSideBets();
-                            }
-                            break;
-                        case 9:
-                            if (pointValue == 9) {
-                                int total = pot + bet4or10;
-                                payOut(player, total, 2);
-                                pot = 0;
-                                clearSideBets();
-                            } else if (pointValue == 5 && bet5or9 < 0) {
-                                payOut(player, bet5or9, 1);
-                                clearSideBets();
-                            } else {
-                                clearSideBets();
-                            }
-                            break;
-                        case 10:
-                            if (pointValue == 10) {
-                                int total = pot + bet4or10;
-                                payOut(player, total, 2);
-                                pot = 0;
-                                clearSideBets();
-                            } else if (pointValue == 4 && bet4or10 < 0) {
-                                payOut(player, bet4or10, 1);
-                                clearSideBets();
-                            } else {
-                                clearSideBets();
-                                continue;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                    payOut(player, winnings, 2);
 
                 }
                 while (rollValue != pointValue || rollValue != 7);
@@ -169,6 +83,64 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         return bet;
     }
 
+    @Override
+    public void resetBets() {
+        pot = 0;
+        clearSideBets();
+    }
+
+    private int handlePointerRoll(int pointValue, int rollValue) {
+
+        int retValue = 0;
+
+        switch (rollValue) {
+
+            case 4:
+                retValue = determineRollPayout(rollValue, pointValue, 10, bet4or10);
+                break;
+            case 5:
+                retValue = determineRollPayout(rollValue, pointValue, 9, bet5or9);
+                break;
+            case 6:
+                retValue = determineRollPayout(rollValue, pointValue, 8, bet6or8);
+                break;
+            case 7:
+                // Lose
+                retValue = 0;
+                clearSideBets();
+                break;
+            case 8:
+                retValue = determineRollPayout(rollValue, pointValue, 6, bet6or8);
+                break;
+            case 9:
+                retValue = determineRollPayout(rollValue, pointValue, 5, bet5or9);
+                break;
+            case 10:
+                retValue = determineRollPayout(rollValue, pointValue, 4, bet4or10);
+                break;
+            default:
+                break;
+        }
+        return retValue;
+    }
+
+    private int determineRollPayout(int rollValue, int pointValue, int sideValue, int groupBets) {
+        int retValue;
+        if (pointValue == rollValue) {
+            int total = pot + bet4or10;
+            retValue = total;
+            pot = 0;
+            clearSideBets();
+        } else if (sideValue == rollValue && groupBets < 0) {
+            retValue = groupBets;
+            clearSideBets();
+        } else {
+            retValue = 0;
+            clearSideBets();
+        }
+        return retValue;
+    }
+
     private int placeSideBet(CrapsPlayer player) {
         boolean isValidInput = false;
         int retValue = -1;
@@ -196,12 +168,6 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
     }
 
-    @Override
-    public void resetBets() {
-        pot = 0;
-        clearSideBets();
-    }
-
     private void clearSideBets() {
         bet4or10 = 0;
         bet5or9 = 0;
@@ -211,35 +177,5 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
     public void payOut(CrapsPlayer player, int value, int multiplier) {
         player.addChips(value * multiplier);
     }
-
-//    public void resetBets() {
-//        resetPlayerWagers();
-//    }
-//
-//    public void payoutWinnings(CrapsPlayer player, Integer multiplier) {
-//        Integer winnings = (pot * multiplier) + sideBets;
-//        System.out.println(player.getName() + " Winnings: " + winnings);
-//        player.addChips(winnings);
-//    }
-//
-//    public void addAIPlayers(int playersToAdd) {
-//        for (int i = 1; i <= playersToAdd; i++)
-//            getPlayers().add(new CrapsPlayer(new Player ("Computer" + i, 0, false),5000));
-//    }
-//
-//    public void playerBet(BlackJackGambler player, Integer amount) {
-//        playerWagers.put(player, amount);
-//    }
-//
-//    public ArrayList<CrapsPlayer> getPlayers() {
-//        return players;
-//    }
-//
-//    public void resetPlayerWagers() {
-//
-//        for (CrapsPlayer player : getPlayers())
-//            playerWagers.put(player, 0);
-//    }
-
 
 }
