@@ -6,70 +6,66 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
     int pot;
 
-    Die d1 = new Die();
-    Die d2 = new Die();
+    Die d1;
+    Die d2;
 
     int bet4or10 = 0;
     int bet5or9 = 0;
     int bet6or8 = 0;
 
-    private void rollDice() {
-        d1.rollDie();
-        d2.rollDie();
-    }
-
     @Override
     public void play(CrapsPlayer player) {
 
         do {
-            Die d1 = new Die();
-            Die d2 = new Die();
+            d1 = new Die();
+            d2 = new Die();
             int pointValue;
             int rollValue;
 
+
+            printCurrentChips(player);
             pot = takeBet(player);
 
             rollDice();
-
             rollValue = d1.getValue() + d2.getValue();
+            printDiceValue(d1, d2);
 
             if (rollValue == 7 || rollValue == 11) {
                 // Win
+                int winnings = pot * 2;
+                printWinOrLose("win", winnings);
                 payOut(player, pot, 2);
-                playAgain = Console.getStringInput("play again");
+                playAgain = Console.getStringInput("Play Again?");
 
             } else if (rollValue == 2 || rollValue == 3 || rollValue == 12) {
                 // Lose
+                printWinOrLose("lose", 0);
+                playAgain = Console.getStringInput("Play Again?");
                 continue;
             } else {
                 pointValue = rollValue;
                 do {
+
+                    printCurrentChips(player);
                     // prompt for bets on next roll group (4 & 10, 5 & 9, or 6 & 8)
                     placeSideBet(player);
 
                     rollDice();
                     rollValue = d1.getValue() + d2.getValue();
+                    printDiceValue(d1, d2);
 
                     int winnings = handlePointerRoll(pointValue, rollValue);
 
                     payOut(player, winnings, 2);
 
                 }
-                while (rollValue != pointValue || rollValue != 7);
+                while (rollValue != pointValue && rollValue != 7);
 
                 resetBets();
-//                if (rollValue == pointValue) {
-//                    // Win
-//                    // player loses initial bet
-//                    // player is prompted to play again
-//                } else if (rollValue == 7) {
-//                    // Lose
-//                    // player loses initial bet
-//                    // player is prompted to play again
-//                }
+                playAgain = Console.getStringInput("Play Again?");
             }
 
-            playAgain = Console.getStringInput("play again");
+
 
         } while ("yes".equalsIgnoreCase(playAgain));
     }
@@ -89,6 +85,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         clearSideBets();
     }
 
+    private void rollDice() {
+        d1.rollDie();
+        d2.rollDie();
+    }
+
     private int handlePointerRoll(int pointValue, int rollValue) {
 
         int retValue = 0;
@@ -106,6 +107,7 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                 break;
             case 7:
                 // Lose
+                printWinOrLose("lose", 0);
                 retValue = 0;
                 clearSideBets();
                 break;
@@ -128,17 +130,46 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         int retValue;
         if (pointValue == rollValue) {
             int total = pot + bet4or10;
+            printWinOrLose("win", total);
             retValue = total;
             pot = 0;
             clearSideBets();
         } else if (sideValue == rollValue && groupBets < 0) {
+            printWinOrLose("win", groupBets);
             retValue = groupBets;
             clearSideBets();
         } else {
+            printWinOrLose("lose", 0);
             retValue = 0;
             clearSideBets();
         }
         return retValue;
+    }
+
+    private void printDiceValue(Die d1, Die d2) {
+        int total = d1.getValue() + d2.getValue();
+        System.out.println("You rolled a :" + d1.getValue() + " and a " + d2.getValue());
+        System.out.println("You have a combined value of " + total);
+    }
+
+    private void printCurrentChips(CrapsPlayer player) {
+        System.out.println("\nYou currently have " + player.getChipCount() + " chips.\n");
+    }
+
+    private void printWinOrLose(String input, int value) {
+        if("win".equals(input)) {
+            System.out.println("");
+            System.out.println("Congratulations! You win!");
+            System.out.println("You won: " + value + " chips!");
+            System.out.println("");
+        }
+        else if ("lose".equals(input)) {
+            System.out.println("Sorry, a Winrar\u00A9 is not you.");
+            System.out.println("Better luck next time.");
+        }
+        else {
+            System.out.println("What are you trying to pull here? Lrn2spelling my boy.");
+        }
     }
 
     private int placeSideBet(CrapsPlayer player) {

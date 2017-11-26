@@ -95,6 +95,5 @@ public class CompPlay {
         while (otherPlayer.equals(player)||otherPlayer.getHand().size()==0);
         return otherPlayer;
     }
-
-
+    
 }
