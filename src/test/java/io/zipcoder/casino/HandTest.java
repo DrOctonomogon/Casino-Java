@@ -18,12 +18,12 @@ public class HandTest {
     @Before
     public void setup() {
         hand = new Hand();
-        card = new Card(Card.Rank.FIVE, Card.Suit.HEART);
-        card2 = new Card(Card.Rank.THREE, Card.Suit.CLUB);
+        card = new Card(Card.Rank.FIVE, Card.Suit.HEARTS);
+        card2 = new Card(Card.Rank.THREE, Card.Suit.CLUBS);
 
-        cardOther = new Card(Card.Rank.NINE, Card.Suit.SPADE);
-        cardOther2 = new Card(Card.Rank.TWO, Card.Suit.DIAMOND);
-        cardOther3 = new Card(Card.Rank.QUEEN, Card.Suit.HEART);
+        cardOther = new Card(Card.Rank.NINE, Card.Suit.SPADES);
+        cardOther2 = new Card(Card.Rank.TWO, Card.Suit.DIAMONDS);
+        cardOther3 = new Card(Card.Rank.QUEEN, Card.Suit.HEARTS);
     }
 
     @Test

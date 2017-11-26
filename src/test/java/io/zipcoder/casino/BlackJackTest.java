@@ -9,11 +9,11 @@ import java.util.HashMap;
 
 public class BlackJackTest {
 
-    //BlackJackGambler player=new BlackJackGambler(player1,1000);
     BlackJackGambler p1;
     BlackJackGambler p2;
     BlackJackGambler p3;
     BlackJack blackJack;
+    Dealer dealer;
     ArrayList<BlackJackGambler> players;
 
     @Before
@@ -24,20 +24,19 @@ public class BlackJackTest {
         p1 = new BlackJackGambler(new Player("Samwise", 10000, false),1000 );
         p2 = new BlackJackGambler(new Player("Frodo", 10000, false),1000 );
         p3 = new BlackJackGambler(new Player("Smeagol", 10, false),1000 );
-
+        dealer= new Dealer();
         blackJack.addPlayer(p1);
         blackJack.addPlayer(p2);
         blackJack.addPlayer(p3);
 
         blackJack.gameSetUp(p2);
-//        blackJack.gameSetUp(p3);
     }
 
     @Test
     public void isBustTest() throws Exception {
-        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.SPADE));
-        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMOND));
+        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.SPADES));
+        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMONDS));
 
         System.out.println(p1.getHandTotal());
         boolean expected = false;
@@ -49,9 +48,9 @@ public class BlackJackTest {
     @Test
     public void isBustTest2() throws Exception {
 //        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.SPADE));
-        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-        p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMOND));
-        p1.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADE));
+        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADES));
 
         System.out.println(p1.getHandTotal());
         boolean expected = true;
@@ -61,18 +60,13 @@ public class BlackJackTest {
     }
 
     @Test
-    public void payOutTest() throws Exception {
-
-    }
-
-    @Test
     public void resetHandsTest() throws Exception {
-        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-        p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMOND));
-        p2.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-        p2.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMOND));
-        p3.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADE));
-        p3.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
+        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
+        p2.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        p2.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
+        p3.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADES));
+        p3.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
 
         HashMap<Player, Integer> expected = new HashMap<Player, Integer>();
         HashMap<Player, Integer> actual = new HashMap<Player, Integer>();
@@ -92,8 +86,46 @@ public class BlackJackTest {
     }
 
     @Test
-    public void addWinningsTest() throws Exception {
+    public void addWinningsTest1() throws Exception {
+        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
+        blackJack.gameSetUp(p1);
+        blackJack.playerBet(p1, 250);
 
+        Integer expected = p1.getChipCount()+500;
+        blackJack.payoutWinnings(p1,2);
+        Integer actual = p1.getChipCount();
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void addWinningsTest2() throws Exception {
+        p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.TEN, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.TEN, Card.Suit.DIAMONDS));
+        blackJack.gameSetUp(p1);
+        blackJack.playerBet(p1, 250);
+
+        Integer expected = p1.getChipCount();
+        blackJack.payoutWinnings(p1,0);
+        Integer actual = p1.getChipCount();
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void addWinningsTest3() throws Exception {
+        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
+        blackJack.gameSetUp(p1);
+        blackJack.playerBet(p1, 250);
+
+        Integer expected = p1.getChipCount()+625;
+        blackJack.payoutWinnings(p1,2);
+        Integer actual = p1.getChipCount();
+
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -105,7 +137,7 @@ public class BlackJackTest {
 
         int expected = p3.getChipCount() + bet;
 
-        blackJack.addWinnings(p3, 1);
+        blackJack.payoutWinnings(p3, 1);
 
         int actual = p3.getChipCount();
 
@@ -115,37 +147,48 @@ public class BlackJackTest {
 
     @Test
     public void takeBetTest() throws Exception {
-        Integer expected = 25;
-        Integer chipsBefore = p1.getChipCount();
+        Integer expected = 250;
+        Integer chipsBefore = p1.getChipCount()-250;
 
         Integer actual = blackJack.takeBet(p1);
         Integer chipsAfter = p1.getChipCount();
 
         Assert.assertEquals(expected, actual);
-        Assert.assertNotEquals(chipsBefore, chipsAfter);
+        Assert.assertEquals(chipsBefore, chipsAfter);
     }
 
+    @Test
+    public void checkForBlackJackTest() throws Exception {
+        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.SPADES));
+        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+
+        boolean expected=true;
+        boolean actual =blackJack.checkForBlackJack(p1);
+
+        Assert.assertEquals(expected,actual);
+    }
 
     @Test
-    public void findWinnersTest() throws Exception {
-        p1.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADE));
-        p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMOND));
-        p1.addCardToHand(new Card(Card.Rank.KING, Card.Suit.DIAMOND));
-
-
-        p2.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-        p2.addCardToHand(new Card(Card.Rank.NINE, Card.Suit.DIAMOND));
-        p2.addCardToHand(new Card(Card.Rank.KING, Card.Suit.DIAMOND));
-
-        p3.addCardToHand(new Card(Card.Rank.KING, Card.Suit.SPADE));
-        p3.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMOND));
-        p3.addCardToHand(new Card(Card.Rank.KING, Card.Suit.DIAMOND));
-
-        int expected = 2;
-
-        int actual = blackJack.findWinners().size();
+    public void addAIPlayers() throws Exception {
+        int  expected=blackJack.getPlayers().size()+3;
+        blackJack.addAIPlayers(3);
+        int actual = blackJack.getPlayers().size();
 
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void removeZeroChipPlayers() throws Exception {
+        BlackJackGambler p4 = new BlackJackGambler(new Player("Frodo", 10000, false),0 );
+        BlackJackGambler p5 = new BlackJackGambler(new Player("Smeagol", 10, false),0 );
+
+        blackJack.addPlayer(p4);
+        blackJack.addPlayer(p5);
+
+        int expected=blackJack.getPlayers().size()-2;
+        blackJack.removeZeroChipPlayers();
+        int actual=blackJack.getPlayers().size();
+
+        Assert.assertEquals(expected,actual);
+    }
 }

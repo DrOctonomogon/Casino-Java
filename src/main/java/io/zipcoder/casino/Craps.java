@@ -252,18 +252,42 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         bet5or9 = 0;
         bet6or8 = 0;
     }
-  
+
+    @Override
+    public void play(CrapsPlayer user) {
+
+    }
+
     public void addAIPlayers(int playersToAdd) {
 
     }
 
+    @Override
+    public Integer takeBet(CrapsPlayer player) {
+        return null;
+    }
+
+    @Override
+    public void payoutWinnings(CrapsPlayer player, double multiplier) {
+
+    }
+
+    @Override
+    public void checkForWinners() {
+
+    }
+
+    @Override
+    public void resetBets() {
+
+    }
 }
 
 //    public void resetBets() {
-//        setPlayerWagers();
+//        resetPlayerWagers();
 //    }
 //
-//    public void addWinnings(CrapsPlayer player, Integer multiplier) {
+//    public void payoutWinnings(CrapsPlayer player, Integer multiplier) {
 //        Integer winnings = (pot * multiplier) + sideBets;
 //        System.out.println(player.getName() + " Winnings: " + winnings);
 //        player.addChips(winnings);
@@ -282,11 +306,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 //        return players;
 //    }
 //
-//    public void setPlayerWagers() {
+//    public void resetPlayerWagers() {
 //
 //        for (CrapsPlayer player : getPlayers())
 //            playerWagers.put(player, 0);
 //    }
 
 
-}
+

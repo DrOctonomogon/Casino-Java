@@ -26,7 +26,7 @@ public class DeckTest {
 
     @Test
     public void getCard() throws Exception {
-        Card expected = new Card(Card.Rank.TWO, Card.Suit.CLUB);
+        Card expected = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
         Card actual = deck.getCard();
 
         Assert.assertEquals(expected.toString(), actual.toString());

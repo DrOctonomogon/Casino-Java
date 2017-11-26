@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public interface Gamble<T> {
     public Integer takeBet(T player);
-    public void payOut(ArrayList<T> winners);
-    public ArrayList<T> findWinners();
+    public void payoutWinnings(T player, double multiplier);
+    public void checkForWinners();
     public void resetBets();
-    public void addWinnings(T player, Integer multiplier);
+
 
 }

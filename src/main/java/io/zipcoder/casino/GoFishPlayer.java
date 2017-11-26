@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import io.zipcoder.casino.Card.*;
 
 
 public class GoFishPlayer extends CardPlayer {
 
-    private ArrayList<Rank> completedSets = new ArrayList<>();
-    private int sets = 0;
+    private ArrayList<Rank> completedBooks = new ArrayList<>();
+    private int books = 0;
     private Map<Rank, Integer> cardMap;
 
     public GoFishPlayer(Player player) {
         super(player);
-        cardMap = new HashMap<>();
+        cardMap = new HashMap<Rank, Integer>();
     }
 
     public void mapNewCard(Card card) {
@@ -35,40 +34,47 @@ public class GoFishPlayer extends CardPlayer {
         return false;
     }
 
-    public void removeQuads() {
-        for (Rank rank : cardMap.keySet())
-            if (cardMap.get(rank) == 4) {
-                addCompletedQuads(rank);
-                giveCards(rank);
-                sets++;
-            }
-    }
-
-
     public ArrayList<Card> giveCards(Rank rank) {
 
         ArrayList<Card> cards = new ArrayList<>();
         while (checkForCard(rank)) {
             cards.add(removeCard(rank));
             mapCardRemoved(rank);
-
         }
         return cards;
     }
 
-    public int getSetCount() {
-        return sets;
+    public void removeBooks() {
+        for (Rank rank : cardMap.keySet())
+            if (cardMap.get(rank) == 4) {
+                CompPlay.removeRankFromPlayer(this, rank);
+                addCompletedBooks(rank);
+                giveCards(rank);
+                books++;
+                System.out.println(getName() + " Completed Book: " + rank);
+            }
     }
 
-    private void addCompletedQuads(Rank rank) {
-        completedSets.add(rank);
+    public int getBookCount() {
+        return books;
     }
 
-    public void printCompetedQuads() {
-        String complete = "";
-        for (Rank rank : completedSets)
-            complete += " {" + rank + "} ";
-        System.out.println(complete);
+    private void addCompletedBooks(Rank rank) {
+        completedBooks.add(rank);
+    }
+
+    public String completedBooksToString() {
+        String complete = "|";
+        for (Rank rank : completedBooks)
+            complete += " {" + rank + "} |";
+        return complete;
+    }
+
+    public int getPointTotal(){
+        int points=0;
+        for (Rank rank : completedBooks)
+            points+=rank.getValue();
+        return points;
     }
 
     @Override

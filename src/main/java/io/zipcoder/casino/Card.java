@@ -13,7 +13,8 @@ public class Card {
     }
 
     enum Suit {
-        CLUB, SPADE, HEART, DIAMOND;
+        CLUBS, SPADES, HEARTS, DIAMONDS;
+
     }
 
 
