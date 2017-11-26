@@ -3,7 +3,6 @@ package io.zipcoder.casino;
 
 public class Casino {
 
-    //public Games games;
     private enum Games{BLACKJACK, CRAPS, GOFISH, EXIT}
     private String playerName;
     private Player player;
@@ -45,8 +44,11 @@ public class Casino {
 
     private void playBlackJack() {
         BlackJack blackJack=new BlackJack();
-        //todo setup bank for player
+
+        Integer chips=Console.getIntegerInput("How many chips would you like to purchase (You have $"+player.getCash()+")?");
+
         BlackJackGambler blackJackGambler=new BlackJackGambler(player, 10000);
+
         blackJack.play(blackJackGambler);
     }
 
@@ -54,5 +56,10 @@ public class Casino {
         GoFish goFish=new GoFish();
         GoFishPlayer goFishPlayer=new GoFishPlayer(player);
         goFish.play(goFishPlayer);
+    }
+
+    private void purchaseChips(Gamble gambler) {
+        Integer amount = Console.getIntegerInput("How many chips would you like to purchase (You have $" + player.getCash() + ")?");
+
     }
 }

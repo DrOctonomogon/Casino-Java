@@ -8,8 +8,9 @@ import java.util.Random;
 
 public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<BlackJackGambler> {
     private Dealer dealer;
-    private String playAgain = "";
+    private String playAgain = "yes";
     private Map<BlackJackGambler, Integer> playerWagers = new HashMap<BlackJackGambler, Integer>();
+//    private Bank bank=new Bank();
 
     public void play(BlackJackGambler user) {
         gameSetUp(user);
@@ -150,6 +151,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             }
         getPlayers().removeAll(playersToRemove);
     }
+
 
     public void resetHands() {
         for (BlackJackGambler player : getPlayers())
