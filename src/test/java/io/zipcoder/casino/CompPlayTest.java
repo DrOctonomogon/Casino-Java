@@ -3,13 +3,9 @@ package io.zipcoder.casino;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import sun.plugin.cache.FileVersion;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class CompPlayTest {
 
@@ -88,14 +84,11 @@ public class CompPlayTest {
          Assert.assertEquals(expected,actual);
     }
 
-    @Test
-    public void getplayerCards() throws Exception {
-    }
 
     @Test
     public void addRankToPlayer() throws Exception {
 
-        String before = CompPlay.getplayerCards();
+        String before = CompPlay.getPlayerCards();
 
         CompPlay.addRankToPlayer(p1, Card.Rank.THREE);
         CompPlay.addRankToPlayer(p1, Card.Rank.FIVE);
@@ -103,7 +96,7 @@ public class CompPlayTest {
         CompPlay.addRankToPlayer(p3, Card.Rank.SIX);
         CompPlay.addRankToPlayer(p3, Card.Rank.SEVEN);
 
-        String after = CompPlay.getplayerCards();
+        String after = CompPlay.getPlayerCards();
 
         Assert.assertNotEquals(before, after);
     }
@@ -120,7 +113,7 @@ public class CompPlayTest {
 
         CompPlay.removeRankFromPlayer(p1, Card.Rank.TEN);
 
-        String actual = CompPlay.getplayerCards();
+        String actual = CompPlay.getPlayerCards();
 
         Assert.assertEquals(expected, actual);
     }

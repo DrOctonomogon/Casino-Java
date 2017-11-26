@@ -31,7 +31,7 @@ public class CompPlay {
         if (player.getHandTotal() < 12) {
             return "Hit";
         }
-        if (player.getHandTotal() < 18)
+        if (player.getHandTotal() >= 18)
             return "Stay";
         else {
             int rand = new Random().nextInt(10) + 1;
@@ -41,7 +41,7 @@ public class CompPlay {
         }
     }
 
-    public static String getplayerCards() {
+    public static String getPlayerCards() {
         String cards = "";
         for (GoFishPlayer p : playerCards.keySet()) {
             cards += playerCards.get(p) + "\n";
