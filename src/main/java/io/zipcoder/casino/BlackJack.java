@@ -13,7 +13,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
     public void play(BlackJackGambler user) {
         gameSetUp(user);
         do {
-            System.out.println("Cards Left: " + getRemainingDeckCards());
             if (getRemainingDeckCards() / getPlayers().size() < 52)
                 loadDecks(8);
             System.out.println(user.getName()+" Chips: "+user.getChipCount()+"\n");
@@ -28,7 +27,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
             System.out.println(dealer.showOneCard());
             for (BlackJackGambler player : getPlayers())
-                System.out.println(player.getName()+" Cards: "+player.handToString());
+                System.out.println(player.getName()+" Cards: "+player.handToString()+" Total: "+player.getHandTotal());
 
             for (BlackJackGambler player : getPlayers())
                 hitOrStay(player);

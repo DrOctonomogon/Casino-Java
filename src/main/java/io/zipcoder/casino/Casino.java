@@ -12,8 +12,6 @@ public class Casino {
 
         playerName=Console.getStringInput("Please enter your name");
         player=new Player(playerName, 10000, true);
-        for(Games game: Games.values())
-            System.out.print(" {"+game+"} ");
         String userInput="";
         do {
             for(Games game: Games.values())
@@ -36,9 +34,10 @@ public class Casino {
             case CRAPS: break;
             case BLACKJACK: playBlackJack();
                 break;
-            case GOFISH: playGoFish();
+            case GOFISH:
+                playGoFish();
                 break;
-            case EXIT: System.console().flush();
+            case EXIT: System.exit(0);
             break;
 
         }

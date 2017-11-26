@@ -11,7 +11,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
         gameSetUp(user);
 
         while (booksRemaining() > 0) {
-            System.out.println("Books remaining: " + booksRemaining());
+            System.out.println("Books remaining: "+ booksRemaining());
             booksFound();
             System.out.println("Your Hand: " + user.handToString());
             Rank cardRank = null;
@@ -111,8 +111,8 @@ public class GoFish extends CardGames<GoFishPlayer> {
         addPlayer(user);
         loadDecks(1);
 
-//        int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
-        addAIPlayers(3);
+        int numberOfPlayers = Console.getIntegerInput("How many other players would you like to play with? ");
+        addAIPlayers(numberOfPlayers);
         dealCards(5);
         for(GoFishPlayer player:getPlayers())
             CompPlay.setUpPlayerCards(player);

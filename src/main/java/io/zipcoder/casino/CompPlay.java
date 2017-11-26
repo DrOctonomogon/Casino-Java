@@ -71,8 +71,8 @@ public class CompPlay<T> {
     public static Rank chooseRank(GoFishPlayer player) {
         Rank cardRank=null;
         for (Card card : player.getHand()) {
-            for (GoFishPlayer fish : playerCards.keySet()) {
-                if (playerCards.get(fish).contains(card.getRank())) {
+            for (GoFishPlayer otherPlayer : playerCards.keySet()) {
+                if (playerCards.get(otherPlayer).contains(card.getRank())&&!player.equals(otherPlayer)) {
                     cardRank = card.getRank();
                     return cardRank;
                 }
