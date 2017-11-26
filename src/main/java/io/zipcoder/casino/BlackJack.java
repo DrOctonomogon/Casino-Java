@@ -113,14 +113,14 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         for (BlackJackGambler player : getPlayers()) {
             int multiplier = 0;
             if (!isBust(dealer) && !isBust(player))
-                multiplier = playerVsDealerPayout(player);
+                multiplier = payoutMultiplier(player);
             else if (!isBust(player))
                 multiplier = 2;
             payoutWinnings(player, multiplier);
         }
     }
 
-    public int playerVsDealerPayout(BlackJackGambler player) {
+    public int payoutMultiplier(BlackJackGambler player) {
         if (player.getHandTotal() > dealer.getHandTotal()) {
             return 2;
         } else if (player.getHandTotal() == dealer.getHandTotal())
@@ -134,7 +134,6 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return false;
     }
 
-    @Override
     public void payoutWinnings(BlackJackGambler player, double multiplier) {
         if (checkForBlackJack(player))
             multiplier += 0.5;

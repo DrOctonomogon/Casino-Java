@@ -4,10 +4,9 @@ import java.util.*;
 
 import io.zipcoder.casino.Card.*;
 
-public class CompPlay<T> {
+public class CompPlay {
 
 
-    private List playerList;
     private static Random rand = new Random();
     private static Map<GoFishPlayer, Set<Rank>> playerCards = new HashMap<>();
 

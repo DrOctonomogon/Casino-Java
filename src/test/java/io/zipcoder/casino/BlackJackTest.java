@@ -86,7 +86,7 @@ public class BlackJackTest {
     }
 
     @Test
-    public void addWinningsTest1() throws Exception {
+    public void payoutWinningsTest1() throws Exception {
         p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
         p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
         blackJack.gameSetUp(p1);
@@ -100,7 +100,7 @@ public class BlackJackTest {
     }
 
     @Test
-    public void addWinningsTest2() throws Exception {
+    public void payoutWinningsTest2() throws Exception {
         p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
         p1.addCardToHand(new Card(Card.Rank.TEN, Card.Suit.DIAMONDS));
         p1.addCardToHand(new Card(Card.Rank.TEN, Card.Suit.DIAMONDS));
@@ -115,7 +115,7 @@ public class BlackJackTest {
     }
 
     @Test
-    public void addWinningsTest3() throws Exception {
+    public void payoutWinningsTest3() throws Exception {
         p1.addCardToHand(new Card(Card.Rank.ACE, Card.Suit.DIAMONDS));
         p1.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
         blackJack.gameSetUp(p1);
@@ -169,6 +169,18 @@ public class BlackJackTest {
     }
 
     @Test
+    public void checkForBlackJackTest2() throws Exception {
+        p1.addCardToHand(new Card(Card.Rank.SEVEN, Card.Suit.SPADES));
+        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        p1.addCardToHand(new Card(Card.Rank.FOUR, Card.Suit.DIAMONDS));
+
+        boolean expected=false;
+        boolean actual =blackJack.checkForBlackJack(p1);
+
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
     public void addAIPlayers() throws Exception {
         int  expected=blackJack.getPlayers().size()+3;
         blackJack.addAIPlayers(3);
@@ -189,6 +201,21 @@ public class BlackJackTest {
         blackJack.removeZeroChipPlayers();
         int actual=blackJack.getPlayers().size();
 
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void  payoutMultiplierTest(){
+        p1.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        Integer expected=2;
+        Integer actual=blackJack.payoutMultiplier(p1);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void payoutMultiplierTest2(){
+        Integer expected=1;
+        Integer actual=blackJack.payoutMultiplier(dealer);
         Assert.assertEquals(expected,actual);
     }
 }
