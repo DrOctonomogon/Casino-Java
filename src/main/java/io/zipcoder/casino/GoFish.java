@@ -120,7 +120,7 @@ public class GoFish extends CardGames<GoFishPlayer> {
 
     public void addAIPlayers(int playersToAdd) {
         for (int i = 1; i <= playersToAdd; i++)
-            addPlayer(new GoFishPlayer(new Player("Computer " + i, 0, false)));
+            addPlayer(new GoFishPlayer(new Player("Computer" + i, 0, false)));
     }
 
     public void printPlayers() {

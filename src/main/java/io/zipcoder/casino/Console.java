@@ -35,17 +35,4 @@ public class Console {
             }
         } while (true);
     }
-
-    public static Card.Suit getSuitInput(String prompt) {
-        do {
-            try {
-                String userInput = getStringInput(prompt);
-                Card.Suit suit = Card.Suit.valueOf(userInput);
-                return suit;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid Card Suit");
-            }
-        } while (true);
-    }
-
 }

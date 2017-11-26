@@ -7,7 +7,7 @@ import static io.zipcoder.casino.Card.Suit.*;
 
 public class CardTest {
 
-    Card card1= new Card(EIGHT, HEART);
+    Card card1= new Card(EIGHT, HEARTS);
 
     @Test
     public void getValueTest() throws Exception {
@@ -18,7 +18,7 @@ public class CardTest {
 
     @Test
     public void getSuitTest() throws Exception {
-        Card.Suit expected =HEART;
+        Card.Suit expected =HEARTS;
         Card.Suit actual=card1.getSuit();
 
         Assert.assertEquals(expected, actual);

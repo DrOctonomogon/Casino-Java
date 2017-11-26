@@ -66,8 +66,8 @@ public class CompPlayTest {
 
     @Test
     public void chooseRank() throws Exception {
-        p1.addCardToHand(new Card(Card.Rank.FIVE, Card.Suit.HEART));
-        p1.addCardToHand(new Card(Card.Rank.THREE, Card.Suit.HEART));
+        p1.addCardToHand(new Card(Card.Rank.FIVE, Card.Suit.HEARTS));
+        p1.addCardToHand(new Card(Card.Rank.THREE, Card.Suit.HEARTS));
         CompPlay.addRankToPlayer(p1, Card.Rank.THREE);
         CompPlay.addRankToPlayer(p1, Card.Rank.FIVE);
         CompPlay.addRankToPlayer(p2, Card.Rank.FIVE);

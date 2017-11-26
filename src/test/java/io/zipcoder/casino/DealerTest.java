@@ -18,9 +18,9 @@ public class DealerTest {
 
     @Test
     public void showOneCardTest() throws Exception {
-        Card first = new Card(Card.Rank.JACK, Card.Suit.SPADE);
-        dealer.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-        dealer.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMOND));
+        Card first = new Card(Card.Rank.JACK, Card.Suit.SPADES);
+        dealer.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        dealer.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
         String expected = "Dealer: " + first.toString();
         String actual = dealer.showOneCard();
         Assert.assertNotEquals(expected, actual);
@@ -30,8 +30,8 @@ public class DealerTest {
     @Test
     public void resetHandTest() throws Exception {
 
-        dealer.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMOND));
-        dealer.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMOND));
+        dealer.addCardToHand(new Card(Card.Rank.JACK, Card.Suit.DIAMONDS));
+        dealer.addCardToHand(new Card(Card.Rank.QUEEN, Card.Suit.DIAMONDS));
         int before = dealer.getHand().size();
         dealer.resetHand();
         int after = dealer.getHand().size();

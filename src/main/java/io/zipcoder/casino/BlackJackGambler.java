@@ -54,7 +54,7 @@ public class BlackJackGambler extends CardPlayer {
     }
 
     public String showHand(){
-        return getName() + " " + getHand() + " " + getHandTotal();
+        return getName() + ": " + handToString() + " Total: " + getHandTotal();
     }
 
 }
