@@ -18,12 +18,12 @@ public class GoFishPlayer extends CardPlayer {
         cardMap = new HashMap<Rank, Integer>();
     }
 
-    public void mapNewCard(Card card) {
+    private void mapNewCard(Card card) {
         Integer val = cardMap.getOrDefault(card.getRank(), 0);
         cardMap.put(card.getRank(), val + 1);
     }
 
-    public void mapCardRemoved(Rank rank) {
+    private void mapCardRemoved(Rank rank) {
         Integer val = cardMap.get(rank);
         cardMap.put(rank, val - 1);
     }

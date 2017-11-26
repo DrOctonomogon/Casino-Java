@@ -66,4 +66,10 @@ public class BlackJackGamblerTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void tradeInChips(){
+        Integer expected=1000;
+        Integer actual=player.tradeInChips();
+        Assert.assertEquals(expected,actual);
+    }
 }

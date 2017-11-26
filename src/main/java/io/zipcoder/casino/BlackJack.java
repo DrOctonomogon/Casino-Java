@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<BlackJackGambler> {
     private Dealer dealer;
-    private String playAgain = "yes";
+    private String playAgain = "";
     private Map<BlackJackGambler, Integer> playerWagers = new HashMap<BlackJackGambler, Integer>();
 
     public void play(BlackJackGambler user) {
@@ -51,6 +51,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
 
     }
 
+    @Override
     public void gameSetUp(BlackJackGambler user) {
         dealer = new Dealer();
         addPlayer(user);
@@ -77,11 +78,11 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return bet;
     }
 
-    public void playerBet(BlackJackGambler player, Integer amount) {
+    private void playerBet(BlackJackGambler player, Integer amount) {
         playerWagers.put(player, amount);
     }
 
-    public void hitOrStay(BlackJackGambler player) {
+    private void hitOrStay(BlackJackGambler player) {
         String userChoice = "";
 
         while (!userChoice.equalsIgnoreCase("Stay") && !isBust(player)) {
@@ -102,14 +103,14 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
             System.out.println(player.getName() + " went over: " + player.getHand() + "\n");
     }
 
-    public boolean isBust(BlackJackGambler player) {
+    private boolean isBust(BlackJackGambler player) {
         if (player.getHandTotal() > 21) {
             return true;
         }
         return false;
     }
 
-    public void checkForWinners() {
+    private void checkForWinners() {
         for (BlackJackGambler player : getPlayers()) {
             int multiplier = 0;
             if (!isBust(dealer) && !isBust(player))
@@ -120,7 +121,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         }
     }
 
-    public int payoutMultiplier(BlackJackGambler player) {
+    private int payoutMultiplier(BlackJackGambler player) {
         if (player.getHandTotal() > dealer.getHandTotal()) {
             return 2;
         } else if (player.getHandTotal() == dealer.getHandTotal())
@@ -128,13 +129,13 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         return 0;
     }
 
-    public boolean checkForBlackJack(BlackJackGambler player) {
+    private boolean checkForBlackJack(BlackJackGambler player) {
         if (player.getHandTotal() == 21 && player.getHand().size() == 2)
             return true;
         return false;
     }
 
-    public void payoutWinnings(BlackJackGambler player, double multiplier) {
+    private void payoutWinnings(BlackJackGambler player, double multiplier) {
         if (checkForBlackJack(player))
             multiplier += 0.5;
         Integer winnings = (int) (playerWagers.get(player).doubleValue() * multiplier);
@@ -143,7 +144,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
         player.addChips(winnings);
     }
 
-    public void removeZeroChipPlayers() {
+    private void removeZeroChipPlayers() {
         ArrayList<BlackJackGambler> playersToRemove = new ArrayList<>();
         for (BlackJackGambler player : getPlayers())
             if (player.getChipCount() == 0 && !player.isPerson()) {
@@ -154,7 +155,7 @@ public class BlackJack extends CardGames<BlackJackGambler> implements Gamble<Bla
     }
 
 
-    public void resetHands() {
+    private void resetHands() {
         for (BlackJackGambler player : getPlayers())
             player.clearHand();
         dealer.resetHand();

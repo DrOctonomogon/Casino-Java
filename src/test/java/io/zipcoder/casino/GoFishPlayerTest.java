@@ -78,6 +78,17 @@ public class GoFishPlayerTest {
     }
 
     @Test
+    public void getBookCountTest() throws Exception{
+        Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMONDS);
+        player.addCardToHand(threeDiamond);
+        player.removeBooks();
+        int expected=1;
+        int actual=player.getBookCount();
+
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
     public void completedBooksToStringTest() throws Exception {
         Card threeDiamond = new Card(Card.Rank.THREE, Card.Suit.DIAMONDS);
         String expected="| {THREE} |";

@@ -7,6 +7,7 @@ public abstract class CardGames<T extends CardPlayer> implements Games<T> {
     private Deck deck;
 
     public abstract void addAIPlayers(int playersToAdd);
+    public abstract void gameSetUp(T user);
 
     public void dealCards(int cardsToDeal) {
         while (cardsToDeal > 0) {

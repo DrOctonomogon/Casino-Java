@@ -13,8 +13,15 @@ public class Card {
     }
 
     enum Suit {
-        CLUBS, SPADES, HEARTS, DIAMONDS;
+        CLUBS((char)'\u2663'), SPADES((char)'\u2660'), HEARTS((char)'\u2665'), DIAMONDS((char)'\u2664');
 
+        private char val;
+         Suit(char val){
+            this.val=val;
+        }
+//        public char getVal(){
+//            return val;
+//        }
     }
 
 
@@ -39,6 +46,6 @@ public class Card {
     }
 
     public String toString() {
-        return rank + " of " + suit;
+        return rank + " of " + suit.val;
     }
 }

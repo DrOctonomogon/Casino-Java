@@ -20,7 +20,6 @@ public class CardTest {
     public void getSuitTest() throws Exception {
         Card.Suit expected =HEARTS;
         Card.Suit actual=card1.getSuit();
-
         Assert.assertEquals(expected, actual);
     }
 
