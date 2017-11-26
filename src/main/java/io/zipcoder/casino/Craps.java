@@ -1,16 +1,15 @@
 package io.zipcoder.casino;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
-    private String playAgain = "";
+    private String playAgain = "yes";
+
     int pot;
+    Bank bank;
     private CrapsPlayer activePlayer = null;
     private ArrayList<CrapsPlayer> players = new ArrayList<CrapsPlayer>();
-    private Map<Player, Integer> playerWagers = new HashMap<Player, Integer>();
 
     Die d1 = new Die();
     Die d2 = new Die();
@@ -24,7 +23,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         d2.rollDie();
     }
 
-    public void play() {
+    @Override
+    public void play(CrapsPlayer player) {
+
+        activePlayer = player;
+        setup();
 
         do {
             Die d1 = new Die();
@@ -33,7 +36,8 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
             int rollValue;
 
 
-            pot = takeBet(activePlayer);
+//            pot = takeBet(activePlayer);
+            bank.takeBet(activePlayer);
 
             rollDice();
 
@@ -41,14 +45,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
             if (rollValue == 7 || rollValue == 11) {
                 // Win
-                // give player pot * multiplier
-                payOut(pot,2);
-                // player is prompted to take winnings or play again with current winnings
+                payOut(pot, 2);
                 playAgain = Console.getStringInput("play again");
+
             } else if (rollValue == 2 || rollValue == 3 || rollValue == 12) {
                 // Lose
-                // player loses pot
-                // player is prompted to play again
                 continue;
             } else {
                 pointValue = rollValue;
@@ -63,8 +64,6 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
                         case 4:
                             if (pointValue == 4) {
-                                // Win
-                                // return pot + side bets
                                 int total = pot + bet4or10;
                                 payOut(total, 2);
                                 pot = 0;
@@ -78,14 +77,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                             break;
                         case 5:
                             if (pointValue == 5) {
-                                // Win
-                                // return pot + side bets
                                 int total = pot + bet4or10;
                                 payOut(total, 2);
                                 pot = 0;
                                 clearSideBets();
                             } else if (pointValue == 9 && bet5or9 < 0) {
-                                // Win side bet
                                 payOut(bet5or9, 1);
                                 clearSideBets();
                             } else {
@@ -94,14 +90,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                             break;
                         case 6:
                             if (pointValue == 6) {
-                                // Win
                                 int total = pot + bet6or8;
                                 payOut(total, 2);
                                 pot = 0;
                                 clearSideBets();
                             } else if (pointValue == 8 && bet6or8 < 0) {
-                                // Win side bet
-                                //continue
                                 payOut(bet6or8, 1);
                                 clearSideBets();
                             } else {
@@ -110,20 +103,15 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                             break;
                         case 7:
                             // Lose
-                            // player loses pot and any side bets
-                            // player is prompted to play again
                             clearSideBets();
                             break;
                         case 8:
                             if (pointValue == 8) {
-                                // Win
                                 int total = pot + bet6or8;
                                 payOut(total, 2);
                                 pot = 0;
                                 clearSideBets();
                             } else if (pointValue == 6 && bet6or8 < 0) {
-                                // Win side bet
-                                //continue
                                 payOut(bet6or8, 1);
                                 clearSideBets();
                             } else {
@@ -132,14 +120,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                             break;
                         case 9:
                             if (pointValue == 9) {
-                                // Win
                                 int total = pot + bet4or10;
                                 payOut(total, 2);
                                 pot = 0;
                                 clearSideBets();
                             } else if (pointValue == 5 && bet5or9 < 0) {
-                                // Win side bet
-                                //continue
                                 payOut(bet5or9, 1);
                                 clearSideBets();
                             } else {
@@ -148,14 +133,11 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                             break;
                         case 10:
                             if (pointValue == 10) {
-                                // Win
                                 int total = pot + bet4or10;
                                 payOut(total, 2);
                                 pot = 0;
                                 clearSideBets();
                             } else if (pointValue == 4 && bet4or10 < 0) {
-                                // Win side bet
-                                //continue
                                 payOut(bet4or10, 1);
                                 clearSideBets();
                             } else {
@@ -170,6 +152,7 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                 }
                 while (rollValue != pointValue || rollValue != 7);
 
+                resetBets();
 //                if (rollValue == pointValue) {
 //                    // Win
 //                    // player loses initial bet
@@ -179,7 +162,6 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 //                    // player loses initial bet
 //                    // player is prompted to play again
 //                }
-
             }
 
             playAgain = Console.getStringInput("play again");
@@ -187,10 +169,18 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         } while ("yes".equalsIgnoreCase(playAgain));
     }
 
-    public Integer takeBet() {
+
+    private void setup() {
+        players. add(activePlayer);
+        bank = new Bank(players);
+    }
+
+
+    @Override
+    public Integer takeBet(CrapsPlayer player) {
         Integer bet;
         bet = Console.getIntegerInput("Place your bet");
-        activePlayer.placeBet(bet);
+        player.placeBet(bet);
 
         return bet;
     }
@@ -222,21 +212,17 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 
     }
 
-    public void payOut(int value, int multiplier) {
-        activePlayer.addChips(value * multiplier);
-    }
-
     private void placeSideBet() {
 
         switch (getGroup()) {
             case 410:
-                 bet4or10 = takeBet();
+                bet4or10 = takeBet(activePlayer);
                 break;
             case 59:
-                bet5or9 = takeBet();
+                bet5or9 = takeBet(activePlayer);
                 break;
             case 68:
-                bet6or8 = takeBet();
+                bet6or8 = takeBet(activePlayer);
                 break;
             case 0:
                 break;
@@ -244,7 +230,12 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
                 break;
         }
 
+    }
 
+    @Override
+    public void resetBets() {
+        pot = 0;
+        clearSideBets();
     }
 
     private void clearSideBets() {
@@ -253,35 +244,19 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
         bet6or8 = 0;
     }
 
-    @Override
-    public void play(CrapsPlayer user) {
-
-    }
-
-    public void addAIPlayers(int playersToAdd) {
-
+    public void payOut(int value, int multiplier) {
+        activePlayer.addChips(value * multiplier);
     }
 
     @Override
-    public Integer takeBet(CrapsPlayer player) {
-        return null;
-    }
+    public void payoutWinnings(CrapsPlayer player, double multiplier) {}
+
+//    @Override
+//    public void checkForWinners() {}
 
     @Override
-    public void payoutWinnings(CrapsPlayer player, double multiplier) {
+    public void addAIPlayers(int playersToAdd) {}
 
-    }
-
-    @Override
-    public void checkForWinners() {
-
-    }
-
-    @Override
-    public void resetBets() {
-
-    }
-}
 
 //    public void resetBets() {
 //        resetPlayerWagers();
@@ -313,4 +288,4 @@ public class Craps implements Gamble<CrapsPlayer>, Games<CrapsPlayer> {
 //    }
 
 
-
+}
