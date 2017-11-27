@@ -2,8 +2,8 @@ package io.zipcoder.casino;
 
 public class CrapsPlayer extends Player {
 
-    Player player;
-    Integer chipCount = 0;
+    private Player player;
+    private Integer chipCount = 0;
 
     public CrapsPlayer(Player player, Integer chipCount) {
         super(player.getName(), player.getCash(), player.isPerson());
@@ -15,9 +15,9 @@ public class CrapsPlayer extends Player {
         return chipCount;
     }
 
-    public Integer tradeInChips(){
-        Integer chips=chipCount;
-        chipCount=0;
+    public Integer tradeInChips() {
+        Integer chips = chipCount;
+        chipCount = 0;
         return chips;
     }
 
